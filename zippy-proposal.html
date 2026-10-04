@@ -865,16 +865,24 @@
     /* Pricing Options Comparison */
     .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
       margin: 14px 0 18px 0;
+    }
+
+    @media (max-width: 950px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .pricing-card {
       border-radius: var(--radius-sm);
-      padding: 18px 20px;
+      padding: 16px 18px;
       border: 1.5px solid var(--slate-200);
       background: var(--white);
+      display: flex;
+      flex-direction: column;
     }
 
     .pricing-card.card-rec {
@@ -882,8 +890,15 @@
       border-top: 4px solid var(--slate-900);
     }
 
+    .pricing-card.card-phase2 {
+      border-color: var(--badge-amber-bdr);
+      border-top: 4px solid #D97706;
+      background: #FFFDF9;
+    }
+
     .pricing-card.card-opt-b {
-      border-top: 4px solid var(--slate-400);
+      border-color: var(--slate-300);
+      border-top: 4px solid #4338CA;
       background: #FAFAFC;
     }
 
@@ -1916,12 +1931,14 @@ flowchart TB
       </p>
 
       <div class="pricing-grid">
+        <!-- CARD 1: PHASE 1 CORE MVP -->
         <div class="pricing-card card-rec">
           <div class="pricing-head">
             <span class="pricing-title">Option A: Core On-Demand MVP</span>
             <span class="badge b-green">₹4,40,000 INR</span>
           </div>
           <div class="pricing-meta">5 Weeks (Delivered Nov 8, 2026) • ~600 Net Hours</div>
+          <div style="font-size: 11px; font-weight: 700; color: #166534; margin-bottom: 8px;">★ Recommended for Nov 8 Launch</div>
           <ul class="pricing-list">
             <li>10–15 min radial dispatch (800m/1.5km PostGIS waterfall)</li>
             <li>Dual Booking: Hourly help (1–4 hrs) + Quick chore packs</li>
@@ -1936,14 +1953,15 @@ flowchart TB
           </ul>
         </div>
 
-        <div class="pricing-card card-opt-b">
+        <!-- CARD 2: PHASE 2 ADD-ON -->
+        <div class="pricing-card card-phase2">
           <div class="pricing-head">
-            <span class="pricing-title">Option B: Exact 1:1 Snabbit Match</span>
-            <span class="badge b-blue">₹7,20,000 INR</span>
+            <span class="pricing-title">Phase 2: Subscription ERP Add-On</span>
+            <span class="badge b-amber">+₹2,80,000 INR</span>
           </div>
-          <div class="pricing-meta">11 Weeks (Delivered Dec 20, 2026) • ~1,000 Net Hours</div>
+          <div class="pricing-meta">+6 Weeks (Delivered Dec 20, 2026) • ~400 Net Hours</div>
+          <div style="font-size: 11px; font-weight: 700; color: #92400E; margin-bottom: 8px;">⚡ Post-Nov 8 Expansion Module</div>
           <ul class="pricing-list">
-            <li><strong>Everything in Option A (Full On-Demand Core) PLUS:</strong></li>
             <li><strong>30-Day Recurring Monthly Maid Subscription Engine</strong></li>
             <li><strong>Automated Substitute Helper Auto-Dispatch ERP:</strong> If assigned maid misses 7:45 AM check-in, system auto-dispatches backup helper!</li>
             <li><strong>Maid Shift, Leave &amp; Vacation Attendance Calendars</strong></li>
@@ -1951,6 +1969,23 @@ flowchart TB
             <li><strong>In-App Customer Prepaid Wallet</strong> for auto-debits &amp; credits</li>
             <li><strong>Customer Viral Referral Engine ("Invite &amp; Earn")</strong></li>
             <li><strong>Automated e-KYC:</strong> DigiLocker UIDAI &amp; IDfy background check</li>
+          </ul>
+        </div>
+
+        <!-- CARD 3: TURNKEY FULL MATCH COMBO -->
+        <div class="pricing-card card-opt-b">
+          <div class="pricing-head">
+            <span class="pricing-title">Option B: Exact 1:1 Snabbit Match</span>
+            <span class="badge b-blue">₹7,20,000 INR</span>
+          </div>
+          <div class="pricing-meta">11 Weeks Total (Full Delivery: Dec 20, 2026) • ~1,000 Net Hours</div>
+          <div style="font-size: 11px; font-weight: 700; color: #4338CA; margin-bottom: 8px;">👑 Complete Turnkey Package (Phases 1 + 2)</div>
+          <ul class="pricing-list">
+            <li><strong>Everything in Option A (Full On-Demand Core, Live Nov 8)</strong></li>
+            <li><strong>Everything in Phase 2 Add-On (Subscription ERP, Live Dec 20)</strong></li>
+            <li>Twin operational engines matching Snabbit's dual marketplace business model</li>
+            <li>Single technical team pod across the entire 11-week roadmap</li>
+            <li><em>Combined investment: ₹4,40,000 (Phase 1) + ₹2,80,000 (Phase 2) = ₹7,20,000 INR</em></li>
           </ul>
         </div>
       </div>
@@ -2010,7 +2045,7 @@ flowchart TB
       </div>
 
       <p style="font-weight: 700; color: var(--slate-900); margin-top: 14px; margin-bottom: 6px;">
-        Commercial Milestone Payment Schedule (Aligned with 5-Week Pod Cash Flow):
+        Phase 1 Commercial Milestone Payment Schedule (Target Delivery: November 8, 2026):
       </p>
       <div class="table-container">
         <table>
@@ -2053,10 +2088,55 @@ flowchart TB
               <td class="text-center">Nov 08</td>
             </tr>
             <tr style="background: var(--slate-100); font-weight: 800;">
-              <td colspan="2">Total Turnkey Fixed Investment (Delivered by Nov 8, 2026)</td>
+              <td colspan="2">Total Phase 1 Fixed Investment (Nov 8 Go-Live)</td>
               <td class="text-center">100%</td>
               <td class="text-right mono" style="color: var(--slate-900); font-size: 13px;">₹4,40,000</td>
               <td class="text-center">Nov 08</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-weight: 700; color: var(--slate-900); margin-top: 14px; margin-bottom: 6px;">
+        Phase 2 Add-On: Subscription ERP &amp; Retention Milestone Schedule (Optional Post-Nov 8 Scope):
+      </p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 25%;">Phase 2 Milestone Gate</th>
+              <th style="width: 45%;">Deliverable Scope &amp; Acceptance Package</th>
+              <th style="width: 10%;" class="text-center">Share</th>
+              <th style="width: 12%;" class="text-right">Amount</th>
+              <th style="width: 8%;" class="text-center">Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>M5: Subscriptions &amp; Attendance</strong></td>
+              <td>30-day recurring monthly maid scheduler, helper shift/leave calendars, customer vacation pause (1–14 days), and recurring billing triggers.</td>
+              <td class="text-center">50%</td>
+              <td class="text-right mono">+₹1,40,000</td>
+              <td class="text-center">Nov 29</td>
+            </tr>
+            <tr>
+              <td><strong>M6: Substitute Auto-Dispatch &amp; Viral Growth</strong></td>
+              <td>Automated substitute maid auto-dispatch FSM (7:45 AM backup cascade), in-app prepaid customer wallet, viral referral credits ("Invite &amp; Earn"), and automated DigiLocker e-KYC.</td>
+              <td class="text-center">50%</td>
+              <td class="text-right mono">+₹1,40,000</td>
+              <td class="text-center">Dec 20</td>
+            </tr>
+            <tr style="background: var(--badge-amber-bg); font-weight: 800;">
+              <td colspan="2" style="color: var(--badge-amber-text);">Total Phase 2 Fixed Add-On (+6 Weeks Post-Launch)</td>
+              <td class="text-center" style="color: var(--badge-amber-text);">100%</td>
+              <td class="text-right mono" style="color: var(--badge-amber-text); font-size: 13px;">+₹2,80,000</td>
+              <td class="text-center" style="color: var(--badge-amber-text);">Dec 20</td>
+            </tr>
+            <tr style="background: #EEF2FF; font-weight: 800; border-top: 2px solid #4338CA;">
+              <td colspan="2" style="color: #1E1B4B;">Grand Total: Exact 1:1 Snabbit Match (Phases 1 + 2 Turnkey Combo)</td>
+              <td class="text-center" style="color: #1E1B4B;">—</td>
+              <td class="text-right mono" style="color: #1E1B4B; font-size: 13.5px;">₹7,20,000</td>
+              <td class="text-center" style="color: #1E1B4B;">Dec 20</td>
             </tr>
           </tbody>
         </table>
