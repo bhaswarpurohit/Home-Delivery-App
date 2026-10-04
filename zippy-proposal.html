@@ -719,18 +719,19 @@
     }
 
     /* ==========================================================================
-       NEW ARCHITECTURE DIAGRAM 1: MONOREPO & MULTI-TIER SYSTEM TOPOLOGY
+       ARCHITECTURE DIAGRAM 1: MULTI-TIER SYSTEM TOPOLOGY & MONOREPO BUS
        ========================================================================== */
     .arch-diagram-wrap {
       background: #FFFFFF;
-      border: 1.5px solid var(--slate-200);
-      border-radius: var(--radius-sm);
-      padding: 20px;
-      margin: 16px 0 24px 0;
+      border: 1.5px solid var(--slate-300);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin: 18px 0 26px 0;
+      box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
     }
 
     .arch-diagram-title {
-      font-size: 12px;
+      font-size: 13.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -742,132 +743,241 @@
     }
 
     .arch-diagram-subtitle {
-      font-size: 11px;
+      font-size: 11.5px;
       color: var(--slate-500);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      line-height: 1.5;
     }
 
     .arch-layer {
-      border: 1px solid var(--slate-200);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      background: var(--slate-50);
-      margin-bottom: 8px;
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      border: 1.5px solid var(--slate-200);
+    }
+
+    /* Distinct Professional Palette for Each Architectural Tier */
+    .tier-client {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+      border-top: 3.5px solid #4F46E5;
+    }
+
+    .tier-server {
+      background: #F0F9FF;
+      border-color: #BAE6FD;
+      border-top: 3.5px solid #0284C7;
+    }
+
+    .tier-data {
+      background: #ECFDF5;
+      border-color: #A7F3D0;
+      border-top: 3.5px solid #059669;
+    }
+
+    .tier-gateways {
+      background: #FAF5FF;
+      border-color: #E9D5FF;
+      border-top: 3.5px solid #7C3AED;
     }
 
     .arch-layer-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .arch-layer-name {
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 800;
-      color: var(--slate-800);
       text-transform: uppercase;
       letter-spacing: 0.4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .arch-layer-meta {
-      font-size: 10px;
-      font-family: var(--font-mono);
-      color: var(--slate-500);
+    .tier-client .arch-layer-name { color: #312E81; }
+    .tier-server .arch-layer-name { color: #0C4A6E; }
+    .tier-data .arch-layer-name { color: #064E3B; }
+    .tier-gateways .arch-layer-name { color: #581C87; }
+
+    .arch-layer-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2.5px 8px;
+      border-radius: 9999px;
     }
+
+    .tier-client .arch-layer-badge { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+    .tier-server .arch-layer-badge { background: #E0F2FE; color: #0369A1; border: 1px solid #7DD3FC; }
+    .tier-data .arch-layer-badge { background: #D1FAE5; color: #047857; border: 1px solid #6EE7B7; }
+    .tier-gateways .arch-layer-badge { background: #F3E8FF; color: #6B21A8; border: 1px solid #D8B4FE; }
 
     .arch-boxes-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
     .arch-boxes-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
     .arch-node {
       background: var(--white);
       border: 1px solid var(--slate-200);
-      border-radius: 4px;
-      padding: 8px 10px;
-      text-align: center;
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      text-align: left;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .arch-node-icon {
+      font-size: 20px;
+      margin-bottom: 6px;
+      display: inline-block;
     }
 
     .arch-node-title {
-      font-size: 11.5px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 800;
       color: var(--slate-900);
+      line-height: 1.3;
     }
 
     .arch-node-sub {
-      font-size: 9.5px;
-      color: var(--slate-500);
-      font-family: var(--font-mono);
-      margin-top: 2px;
-    }
-
-    .arch-connector-bar {
-      text-align: center;
       font-size: 10.5px;
       color: var(--slate-500);
       font-family: var(--font-mono);
-      padding: 4px 0;
+      margin-top: 3px;
       font-weight: 600;
     }
 
+    .arch-node-points {
+      list-style: none;
+      margin-top: 8px;
+      font-size: 10.5px;
+      color: var(--slate-600);
+      line-height: 1.45;
+    }
+
+    .arch-node-points li {
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 3px;
+    }
+
+    .arch-node-points li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--slate-400);
+      font-weight: 800;
+    }
+
+    /* Connecting Bus */
+    .arch-connector-bus {
+      background: #F1F5F9;
+      border: 1.5px dashed #94A3B8;
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: var(--slate-700);
+    }
+
+    .bus-pills {
+      display: flex;
+      gap: 6px;
+    }
+
+    .bus-pill {
+      background: var(--white);
+      border: 1px solid var(--slate-300);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+      color: var(--slate-800);
+    }
+
     /* ==========================================================================
-       NEW ARCHITECTURE DIAGRAM 2: 10-MIN DISPATCH WATERFALL FLOWCHART
+       ARCHITECTURE DIAGRAM 2: 10-MIN DISPATCH WATERFALL FLOWCHART
        ========================================================================== */
     .dispatch-flowchart {
       background: #FFFFFF;
-      border: 1.5px solid var(--slate-200);
-      border-radius: var(--radius-sm);
-      padding: 18px 20px;
-      margin: 14px 0 20px 0;
+      border: 1.5px solid var(--slate-300);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      margin: 16px 0 24px 0;
+      box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
     }
 
     .flowchart-step-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      position: relative;
+      gap: 12px;
+      margin-top: 14px;
     }
 
     .flow-step-box {
-      background: var(--slate-50);
-      border: 1px solid var(--slate-200);
       border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      border-top: 3px solid var(--slate-700);
+      padding: 16px 16px;
       display: flex;
       flex-direction: column;
+      border: 1.5px solid var(--slate-200);
+      background: var(--white);
     }
+
+    .step-blue   { border-top: 4px solid #2563EB; background: #F8FAFD; }
+    .step-cyan   { border-top: 4px solid #0284C7; background: #F0F9FF; }
+    .step-indigo { border-top: 4px solid #4F46E5; background: #EEF2FF; }
+    .step-green  { border-top: 4px solid #059669; background: #ECFDF5; }
 
     .flow-step-time {
-      font-size: 9.5px;
+      font-size: 10px;
       font-family: var(--font-mono);
       font-weight: 800;
-      color: var(--slate-600);
       text-transform: uppercase;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
+    .step-blue .flow-step-time   { background: #DBEAFE; color: #1D4ED8; }
+    .step-cyan .flow-step-time   { background: #E0F2FE; color: #0369A1; }
+    .step-indigo .flow-step-time { background: #E0E7FF; color: #3730A3; }
+    .step-green .flow-step-time  { background: #D1FAE5; color: #047857; }
+
     .flow-step-heading {
-      font-size: 11.5px;
+      font-size: 12.5px;
       font-weight: 800;
       color: var(--slate-900);
-      margin-bottom: 4px;
+      margin: 4px 0 6px 0;
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .flow-step-body {
-      font-size: 10.5px;
+      font-size: 11px;
       color: var(--slate-600);
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     /* Pricing Options Comparison */
@@ -1469,87 +1579,228 @@
           <span style="font-size: 10px; color: var(--slate-500); font-family: var(--font-mono);">PRODUCTION SYSTEM TOPOLOGY</span>
         </div>
         <div class="arch-diagram-subtitle">
-          End-to-end data orchestration from edge client applications through NestJS 11 FSM core to spatial persistence and telephony gateways.
+          End-to-end data orchestration from edge client applications through the NestJS 11 FSM core to spatial persistence and telephony gateways.
         </div>
 
         <!-- LAYER 1: CLIENT FRONTENDS -->
-        <div class="arch-layer">
+        <div class="arch-layer tier-client">
           <div class="arch-layer-head">
-            <span class="arch-layer-name">Tier 1: Client Application Layer (Turborepo Workspaces)</span>
-            <span class="arch-layer-meta">React Native (Expo SDK 53+) &amp; Next.js 15+ App Router</span>
+            <span class="arch-layer-name">
+              <span>📱💻 Tier 1: Client Application Layer (Turborepo Workspaces)</span>
+            </span>
+            <span class="arch-layer-badge">CLIENT-SIDE (EDGE RUNTIMES)</span>
           </div>
           <div class="arch-boxes-3">
             <div class="arch-node">
-              <div class="arch-node-title">Customer App (iOS / Android)</div>
-              <div class="arch-node-sub">Hermes Engine • 3-Tap Checkout • Live Radar</div>
+              <span class="arch-node-icon">📱</span>
+              <div class="arch-node-title">Customer Mobile App</div>
+              <div class="arch-node-sub">iOS &amp; Android • React Native (Hermes Engine)</div>
+              <ul class="arch-node-points">
+                <li>Sub-45s 3-Tap Quick-Commerce Booking Flow</li>
+                <li>Live Two-Phase Animated Radar Route &amp; Countdown</li>
+                <li>1-Tap Razorpay Native UPI Intent &amp; Masked Voice Bridge</li>
+              </ul>
             </div>
             <div class="arch-node">
-              <div class="arch-node-title">Helper Partner App (Android)</div>
-              <div class="arch-node-sub">Trilingual (GU/HI/EN) • 45s Ringtone Alert • 200m GPS</div>
+              <span class="arch-node-icon">👷📱</span>
+              <div class="arch-node-title">Helper Partner App</div>
+              <div class="arch-node-sub">Android-First • React Native Native Build</div>
+              <ul class="arch-node-points">
+                <li>Trilingual Vernacular UI (Gujarati, Hindi, English)</li>
+                <li>45-Second Full-Screen Loud Audio Ring Alert Modal</li>
+                <li>200m GPS Geofence Lock &amp; Persistent SOS "Kavach" Rail</li>
+              </ul>
             </div>
             <div class="arch-node">
-              <div class="arch-node-title">Admin Console (Web Portal)</div>
-              <div class="arch-node-sub">Next.js 15 • Live Dispatch Map • S3 KYC Audit Desk</div>
+              <span class="arch-node-icon">🖥️🌐</span>
+              <div class="arch-node-title">Admin Operations Console</div>
+              <div class="arch-node-sub">Next.js 15+ App Router • Tailwind • shadcn/ui</div>
+              <ul class="arch-node-points">
+                <li>Real-Time Live Dispatch Radar &amp; Manual Override Queue</li>
+                <li>Aadhaar/Police KYC Desk with 15m Expiring S3 Links</li>
+                <li>Delay Compensation Audit &amp; Batch Bank CSV Export</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div class="arch-connector-bar">
-          ↕ Shared Packages: @zippy/types (Shared DTOs) • @zippy/validation (Zod) • @zippy/api-client ↕
+        <!-- CONNECTOR BUS: SHARED WORKSPACE PACKAGES -->
+        <div class="arch-connector-bus">
+          <div>
+            <strong>📦 Monorepo Shared Workspace Bus:</strong>
+            <span style="color: var(--slate-500); margin-left: 4px;">Zero API Drift across Frontends &amp; Backend</span>
+          </div>
+          <div class="bus-pills">
+            <span class="bus-pill">@zippy/types (DTOs)</span>
+            <span class="bus-pill">@zippy/validation (Zod)</span>
+            <span class="bus-pill">@zippy/api-client (Typed Fetch)</span>
+          </div>
         </div>
 
         <!-- LAYER 2: API GATEWAY & CORE BACKEND -->
-        <div class="arch-layer">
+        <div class="arch-layer tier-server">
           <div class="arch-layer-head">
-            <span class="arch-layer-name">Tier 2: Backend API &amp; Finite State Machine (Node.js 22 LTS)</span>
-            <span class="arch-layer-meta">NestJS 11 Modular Architecture • In-Memory Event Bus (&lt;10ms)</span>
+            <span class="arch-layer-name">
+              <span>⚙️🖥️ Tier 2: Backend API &amp; Finite State Machine (Node.js 22 LTS)</span>
+            </span>
+            <span class="arch-layer-badge">SERVER-SIDE (NESTJS 11 MODULAR CORE)</span>
           </div>
           <div class="arch-boxes-4">
             <div class="arch-node">
-              <div class="arch-node-title">Auth &amp; Telephony</div>
-              <div class="arch-node-sub">MSG91 OTP • JWT Auth • Twilio Voice Relay</div>
+              <span class="arch-node-icon">🔐📞</span>
+              <div class="arch-node-title">Auth &amp; Telephony Relay</div>
+              <div class="arch-node-sub">MSG91 OTP • JWT Auth • Twilio Bridge</div>
+              <ul class="arch-node-points">
+                <li>DLT-Approved 6-digit SMS OTP verification</li>
+                <li>Twilio/Exotel virtual number call masking</li>
+                <li>Role-based JWT sessions with token rotation</li>
+              </ul>
             </div>
             <div class="arch-node">
+              <span class="arch-node-icon">⚡⚙️</span>
               <div class="arch-node-title">Booking FSM Engine</div>
-              <div class="arch-node-sub">Server-Authoritative States &amp; Transitions</div>
+              <div class="arch-node-sub">Authoritative Finite State Machine</div>
+              <ul class="arch-node-points">
+                <li>Cryptographically audited status transitions</li>
+                <li>Strict mutation locks prevent double-booking</li>
+                <li>Sub-10ms in-memory event bus dispatching</li>
+              </ul>
             </div>
             <div class="arch-node">
-              <div class="arch-node-title">PostGIS Dispatcher</div>
-              <div class="arch-node-sub">800m Nano-Market Spatial GiST Waterfall</div>
+              <span class="arch-node-icon">🗺️📍</span>
+              <div class="arch-node-title">PostGIS Spatial Dispatcher</div>
+              <div class="arch-node-sub">800m Nano-Market Spatial Engine</div>
+              <ul class="arch-node-points">
+                <li>Sub-5ms ST_DWithin spatial GiST indexing</li>
+                <li>30s priority window to customer favorites</li>
+                <li>Auto-cascades to 1.5km pool upon partner timeout</li>
+              </ul>
             </div>
             <div class="arch-node">
-              <div class="arch-node-title">Payments &amp; Ledger</div>
-              <div class="arch-node-sub">Razorpay Webhooks • Delayed Compensations</div>
+              <span class="arch-node-icon">💳⚖️</span>
+              <div class="arch-node-title">Payments &amp; Settlement</div>
+              <div class="arch-node-sub">Razorpay Webhooks • Compensation</div>
+              <ul class="arch-node-points">
+                <li>SHA-256 webhook cryptographic verification</li>
+                <li>Automated ₹50 credit for late arrivals (&gt;10m)</li>
+                <li>Double-entry partner earnings audit ledger</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div class="arch-connector-bar">
-          ↕ Spatial Queries • Distributed BullMQ Timers • Presigned Encrypted Storage (15m TTL) ↕
+        <!-- CONNECTOR BUS: DATA LAYER -->
+        <div class="arch-connector-bus">
+          <div>
+            <strong>↕ Spatial SQL Queries • Distributed Locks • Encrypted Pre-Signed URLs (15m TTL) ↕</strong>
+          </div>
+          <div class="bus-pills">
+            <span class="bus-pill">ACID Ledger</span>
+            <span class="bus-pill">Sub-5ms Query</span>
+            <span class="bus-pill">AES-256 At Rest</span>
+          </div>
         </div>
 
-        <!-- LAYER 3: DATA PERSISTENCE & CLOUD INTEGRATIONS -->
-        <div class="arch-layer">
+        <!-- LAYER 3: DATA PERSISTENCE & DISTRIBUTED CACHE -->
+        <div class="arch-layer tier-data">
           <div class="arch-layer-head">
-            <span class="arch-layer-name">Tier 3: Persistence, Distributed Queues &amp; Third-Party Gateways</span>
-            <span class="arch-layer-meta">ACID Financial Ledger • High-Throughput In-Memory Storage</span>
+            <span class="arch-layer-name">
+              <span>🗄️💾 Tier 3: Persistence, In-Memory State &amp; Distributed Queues</span>
+            </span>
+            <span class="arch-layer-badge">DATA PERSISTENCE &amp; IN-MEMORY CACHE</span>
           </div>
           <div class="arch-boxes-4">
             <div class="arch-node">
+              <span class="arch-node-icon">🐘🗄️</span>
               <div class="arch-node-title">PostgreSQL 17 + PostGIS</div>
               <div class="arch-node-sub">Spatial Indexes • Immutable Ledger</div>
+              <ul class="arch-node-points">
+                <li>Spatial geography geometry types (GiST)</li>
+                <li>Double-entry financial accounting ledger</li>
+                <li>Automated WAL archiving &amp; daily snapshots</li>
+              </ul>
             </div>
             <div class="arch-node">
-              <div class="arch-node-title">Redis 8 + BullMQ 5+</div>
-              <div class="arch-node-sub">45s Dispatch Lockout • Slot Locks</div>
+              <span class="arch-node-icon">⚡🔴</span>
+              <div class="arch-node-title">Redis 8 Cluster</div>
+              <div class="arch-node-sub">In-Memory Cache &amp; State Locks</div>
+              <ul class="arch-node-points">
+                <li>Real-time partner GPS coordinate cache</li>
+                <li>Server-validated 4-digit arrival/end OTPs</li>
+                <li>Atomic 45-second reservation locks</li>
+              </ul>
             </div>
             <div class="arch-node">
+              <span class="arch-node-icon">⏱️🐂</span>
+              <div class="arch-node-title">BullMQ 5+ Queues</div>
+              <div class="arch-node-sub">Distributed Delayed Job Workers</div>
+              <ul class="arch-node-points">
+                <li>45s partner audible acceptance timers</li>
+                <li>Secondary 1.5km radial expansion workers</li>
+                <li>Background delay compensation audit tasks</li>
+              </ul>
+            </div>
+            <div class="arch-node">
+              <span class="arch-node-icon">☁️🔒</span>
               <div class="arch-node-title">AWS S3 / Spaces</div>
-              <div class="arch-node-sub">Encrypted KYC Documents &amp; Media</div>
+              <div class="arch-node-sub">Encrypted Object Document Store</div>
+              <ul class="arch-node-points">
+                <li>Aadhaar &amp; police verification storage</li>
+                <li>Expiring 15-min pre-signed URLs for Admin</li>
+                <li>Direct client bucket billing at actuals</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- LAYER 4: EXTERNAL CLOUD & TELEPHONY GATEWAYS -->
+        <div class="arch-layer tier-gateways">
+          <div class="arch-layer-head">
+            <span class="arch-layer-name">
+              <span>🌐☁️ Tier 4: External Gateways &amp; Cloud Telephony</span>
+            </span>
+            <span class="arch-layer-badge">THIRD-PARTY ENTERPRISE RAILS</span>
+          </div>
+          <div class="arch-boxes-4">
+            <div class="arch-node">
+              <span class="arch-node-icon">📞</span>
+              <div class="arch-node-title">Twilio / Exotel Bridge</div>
+              <div class="arch-node-sub">Masked In-App Voice Relay</div>
+              <ul class="arch-node-points">
+                <li>Anonymized PSTN virtual calling numbers</li>
+                <li>Protects helper &amp; customer private phones</li>
+                <li>Zero personal contact number disclosure</li>
+              </ul>
             </div>
             <div class="arch-node">
-              <div class="arch-node-title">Twilio / Razorpay / FCM</div>
-              <div class="arch-node-sub">Masked Calling • UPI Intent • High-Priority Push</div>
+              <span class="arch-node-icon">💳</span>
+              <div class="arch-node-title">Razorpay Gateway</div>
+              <div class="arch-node-sub">UPI Intent &amp; Instant Settlement</div>
+              <ul class="arch-node-points">
+                <li>1-tap native UPI intent (GPay, PhonePe)</li>
+                <li>Instant automatic refund triggers for SLA</li>
+                <li>Automated daily net-banking batch payouts</li>
+              </ul>
+            </div>
+            <div class="arch-node">
+              <span class="arch-node-icon">💬</span>
+              <div class="arch-node-title">MSG91 SMS Gateway</div>
+              <div class="arch-node-sub">DLT Transactional SMS</div>
+              <ul class="arch-node-points">
+                <li>Sub-5 second verification OTP delivery</li>
+                <li>DLT-registered commercial templates</li>
+                <li>Automated telco fallback routing</li>
+              </ul>
+            </div>
+            <div class="arch-node">
+              <span class="arch-node-icon">🔔</span>
+              <div class="arch-node-title">Firebase Messaging (FCM)</div>
+              <div class="arch-node-sub">High-Priority Partner Push</div>
+              <ul class="arch-node-points">
+                <li>Loud custom ringtone audio alert wakeups</li>
+                <li>Wakes backgrounded Android helper app</li>
+                <li>Real-time booking radar state pushes</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1782,40 +2033,56 @@
 
       <!-- DISPATCH FLOWCHART -->
       <div class="dispatch-flowchart">
-        <div style="font-size: 11px; font-weight: 800; color: var(--slate-900); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
+        <div style="font-size: 13px; font-weight: 800; color: var(--slate-900); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
           Figure 2: Real-Time Sub-10 Minute Dispatch Waterfall &amp; Arrival Sequence
         </div>
-        <div style="font-size: 10.5px; color: var(--slate-500); margin-bottom: 12px;">
-          Chronological event sequence executed by the PostGIS dispatch engine and BullMQ queue workers.
+        <div style="font-size: 11px; color: var(--slate-500); margin-bottom: 14px;">
+          Chronological execution pipeline coordinated across PostGIS spatial indexing, BullMQ distributed timers, and Twilio voice relays.
         </div>
 
         <div class="flowchart-step-grid">
           <!-- Step 1 -->
-          <div class="flow-step-box">
-            <div class="flow-step-time">T = 0s to 5s</div>
-            <div class="flow-step-heading">1. Instant Checkout &amp; Favorite Scan</div>
-            <div class="flow-step-body">Customer completes 3-tap UPI booking. If customer has a favorite helper online within corridor, system gives them an exclusive <strong>30-second priority window</strong>.</div>
+          <div class="flow-step-box step-blue">
+            <span class="flow-step-time">T = 0s to 5s</span>
+            <div class="flow-step-heading">
+              <span>🛒📱 1. Instant Checkout &amp; Favorite Scan</span>
+            </div>
+            <div class="flow-step-body">
+              Customer completes sub-45s 3-tap booking via Razorpay native UPI. System instantly checks if customer has a previously rated 5-star favorite helper online within corridor, granting an <strong>exclusive 30-second priority reservation window</strong>.
+            </div>
           </div>
 
           <!-- Step 2 -->
-          <div class="flow-step-box">
-            <div class="flow-step-time">T = 5s to 50s</div>
-            <div class="flow-step-heading">2. Primary Nano-Market (800m)</div>
-            <div class="flow-step-body">PostGIS queries available partners within 800m. BullMQ locks booking to Candidate 1 for 45s, triggering full-screen <strong>loud audible ringtone alert modal</strong>.</div>
+          <div class="flow-step-box step-cyan">
+            <span class="flow-step-time">T = 5s to 50s</span>
+            <div class="flow-step-heading">
+              <span>📡🔔 2. Primary Nano-Market Corridor (800m)</span>
+            </div>
+            <div class="flow-step-body">
+              PostGIS executes sub-5ms <code>ST_DWithin</code> spatial query across <code>ONLINE</code> verified partners within 800m. BullMQ locks booking to Candidate 1 for 45s, triggering a high-priority FCM push with a <strong>loud 45-second audio ringtone modal</strong>.
+            </div>
           </div>
 
           <!-- Step 3 -->
-          <div class="flow-step-box">
-            <div class="flow-step-time">T = 50s to 9m</div>
-            <div class="flow-step-heading">3. Secondary Cascade &amp; In-Transit</div>
-            <div class="flow-step-body">If Candidate 1 declines, offer instantly cascades to Candidate 2 or expands to 1.5km (ETA 15m). Live GPS radar route displayed with <strong>Twilio masked voice relay</strong> active.</div>
+          <div class="flow-step-box step-indigo">
+            <span class="flow-step-time">T = 50s to 9m</span>
+            <div class="flow-step-heading">
+              <span>🛵📞 3. Secondary Cascade &amp; In-Transit</span>
+            </div>
+            <div class="flow-step-body">
+              If Candidate 1 times out or declines, offer instantly cascades to Candidate 2 or auto-expands to 1.5km (ETA 15m). Live GPS radar route displays helper's movement with <strong>Twilio/Exotel virtual voice bridge</strong> active to protect private numbers.
+            </div>
           </div>
 
           <!-- Step 4 -->
-          <div class="flow-step-box">
-            <div class="flow-step-time">T = 10m to Finish</div>
-            <div class="flow-step-heading">4. 200m Geofence &amp; Dual-OTP</div>
-            <div class="flow-step-body">Server checks device GPS is within 200m of customer address before accepting Start OTP. End OTP finalizes job and automatically credits <strong>₹50 compensation</strong> if SLA exceeded.</div>
+          <div class="flow-step-box step-green">
+            <span class="flow-step-time">T = 10m to Finish</span>
+            <div class="flow-step-heading">
+              <span>🛡️📍 4. 200m Geofence Lock &amp; Dual-OTP</span>
+            </div>
+            <div class="flow-step-body">
+              Server cryptographically verifies device GPS is strictly within 200m of customer address before accepting Start OTP. End OTP finalizes the job, settles partner ledger, and automatically credits <strong>₹50 compensation</strong> if SLA exceeded.
+            </div>
           </div>
         </div>
       </div>
