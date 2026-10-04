@@ -949,6 +949,105 @@
       color: var(--slate-800);
     }
 
+    /* Hosting & Cloud Infrastructure Comparison */
+    .hosting-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 12px 0 16px 0;
+    }
+
+    @media (max-width: 850px) {
+      .hosting-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hosting-card {
+      background: var(--white);
+      border: 1.5px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hosting-card.card-starter {
+      border-top: 4px solid #16A34A;
+      background: #FAFCFA;
+    }
+
+    .hosting-card.card-enterprise {
+      border-top: 4px solid #2563EB;
+      background: #FAFAFD;
+    }
+
+    .hosting-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      gap: 8px;
+    }
+
+    .hosting-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--slate-900);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .hosting-cost-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+
+    .cost-starter {
+      background: #DCFCE7;
+      color: #15803D;
+      border: 1px solid #BBF7D0;
+    }
+
+    .cost-enterprise {
+      background: #EFF6FF;
+      color: #1E40AF;
+      border: 1px solid #BFDBFE;
+    }
+
+    .hosting-meta {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--slate-600);
+      margin-bottom: 8px;
+    }
+
+    .hosting-list {
+      list-style: none;
+      font-size: 11px;
+      color: var(--slate-700);
+      line-height: 1.45;
+    }
+
+    .hosting-list li {
+      margin-bottom: 5px;
+      position: relative;
+      padding-left: 13px;
+    }
+
+    .hosting-list li::before {
+      content: "•";
+      position: absolute;
+      left: 1px;
+      color: var(--slate-800);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
     /* Formal Signatures Block */
     .sign-grid {
       display: grid;
@@ -1052,7 +1151,7 @@
         margin-top: 14px;
       }
 
-      .pillar-box, .arch-diagram-wrap, .dispatch-flowchart, .tech-stack-grid, .table-container, .pricing-card, .deliv-card, .callout, .sign-grid, .exec-brief, .metrics-grid {
+      .pillar-box, .arch-diagram-wrap, .dispatch-flowchart, .tech-stack-grid, .table-container, .pricing-card, .hosting-card, .deliv-card, .callout, .sign-grid, .exec-brief, .metrics-grid {
         page-break-inside: avoid;
         break-inside: avoid;
       }
@@ -1078,7 +1177,7 @@
     <div class="top-meta">
       <span>Target Launch: <strong>November 8, 2026</strong></span>
       <span>Timeline: <strong>5 Weeks Turnkey</strong></span>
-      <span>Investment: <strong>₹4,40,000 INR</strong></span>
+      <span>Development Cost: <strong>₹4,40,000 INR</strong></span>
     </div>
     <button class="print-btn" onclick="window.print()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1099,7 +1198,7 @@
     <a href="#tech-architecture" class="jump-link">4. Architecture</a>
     <a href="#curated-tech-stack" class="jump-link">5. Curated Tech Stack</a>
     <a href="#operational-engines" class="jump-link">6. Dispatch &amp; FSM</a>
-    <a href="#commercial-options" class="jump-link">7. Pricing Options</a>
+    <a href="#commercial-options" class="jump-link">7. Pricing &amp; Hosting</a>
     <a href="#sprint-roadmap" class="jump-link">8. 5-Week Roadmap</a>
     <a href="#contract-terms" class="jump-link">9. Contract Terms</a>
   </div>
@@ -1113,7 +1212,7 @@
     <div class="hero">
       <div class="hero-pills">
         <span class="pill pill-accent">Launch Target: November 8, 2026</span>
-        <span class="pill">Turnkey: ₹4,40,000 INR</span>
+        <span class="pill">Development Cost: ₹4,40,000 INR</span>
         <span class="pill">5-Week Execution Timeline</span>
         <span class="pill">Ahmedabad Urban Corridors</span>
       </div>
@@ -1164,7 +1263,7 @@
         </div>
         <div class="exec-brief-item">
           <span class="exec-bullet">▶</span>
-          <div><strong>Fixed Investment:</strong> ₹4,40,000 INR fixed turnkey for Option A, covering complete end-to-end development, testing, store compliance, and production handover.</div>
+          <div><strong>Development Cost:</strong> ₹4,40,000 INR fixed turnkey for Option A, covering complete end-to-end development, testing, store compliance, and production handover.</div>
         </div>
         <div class="exec-brief-item">
           <span class="exec-bullet">▶</span>
@@ -1186,7 +1285,7 @@
         <div class="metric-sub">Customer, Helper &amp; Admin Ops</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Turnkey Investment</div>
+        <div class="metric-label">Development Cost</div>
         <div class="metric-val">₹4,40,000</div>
         <div class="metric-sub">Option A: Core On-Demand MVP</div>
       </div>
@@ -1949,7 +2048,7 @@ flowchart TB
             <li><strong>Everything in Phase 2 Add-On (Subscription ERP, Live Dec 20)</strong></li>
             <li>Twin operational engines matching Snabbit's dual marketplace business model</li>
             <li>Dedicated technical leadership across the entire 11-week roadmap</li>
-            <li><em>Combined investment: ₹4,40,000 (Phase 1) + ₹2,80,000 (Phase 2) = ₹7,20,000 INR</em></li>
+            <li><em>Combined development cost: ₹4,40,000 (Phase 1) + ₹2,80,000 (Phase 2) = ₹7,20,000 INR</em></li>
           </ul>
         </div>
       </div>
@@ -1958,6 +2057,59 @@ flowchart TB
         <span>⚠️</span>
         <div>
           <strong>Why Subscriptions CANNOT Launch on November 8:</strong> An automated substitute maid auto-dispatch system requires an enterprise workforce ERP and <strong>at least 150+ active verified helpers in a tight 3km corridor</strong>. Launching this before establishing helper supply will cause dispatch failure. We recommend contracting <strong>Phase 1 (₹4,40,000)</strong> for the <strong>November 8 launch</strong>, followed by the <strong>Phase 2 Subscription ERP Add-On (+₹2,80,000)</strong> once liquidity is established. <em>(Total combo: ₹7,20,000 INR).</em>
+        </div>
+      </div>
+
+      <!-- ESTIMATED MONTHLY CLOUD INFRASTRUCTURE & PASS-THROUGH COSTS -->
+      <div style="margin-top: 24px; padding-top: 18px; border-top: 1.5px solid var(--slate-200);">
+        <div style="font-size: 14px; font-weight: 800; color: var(--slate-900); letter-spacing: -0.2px; margin-bottom: 4px;">
+          Estimated Monthly Cloud Infrastructure &amp; Operational Costs (Pass-Through Billed at Actuals)
+        </div>
+        <p style="font-size: 12px; color: var(--slate-600); margin-bottom: 12px;">
+          All server infrastructure, transactional SMS, and masked telephony rails are registered under and billed <strong>directly to the client's corporate cloud accounts at actuals with zero markup</strong>. Below is a side-by-side comparison of the <strong>cost-optimized lean launch setup</strong> versus the <strong>enterprise multi-zone scale setup</strong>:
+        </p>
+
+        <div class="hosting-grid">
+          <!-- TIER 1: CHEAPEST LEAN MVP -->
+          <div class="hosting-card card-starter">
+            <div class="hosting-head">
+              <span class="hosting-title">Option 1: Lean Starter MVP (Cheapest)</span>
+              <span class="hosting-cost-badge cost-starter">~₹2,500 – ₹4,000 / mo</span>
+            </div>
+            <div class="hosting-meta">★ Recommended for Nov 8 Launch (Up to 2,500 Bookings/Month)</div>
+            <ul class="hosting-list">
+              <li><strong>Compute &amp; DB:</strong> Single DigitalOcean Droplet / Hetzner Cloud (4 vCPU, 8 GB RAM, NVMe SSD) running containerized NestJS, PostgreSQL 17 + PostGIS, and Redis 8 via Docker Compose (~$28–$35/mo / ~₹2,400–₹2,900/mo).</li>
+              <li><strong>KYC Storage:</strong> DigitalOcean Spaces or AWS S3 encrypted vault (~$5/mo / ~₹420/mo).</li>
+              <li><strong>DLT Transactional SMS (MSG91):</strong> ₹0.18–₹0.20 per SMS OTP (~₹400–₹600/mo for 2,000–3,000 verification OTPs).</li>
+              <li><strong>Call Masking (Exotel / Twilio):</strong> 1 Virtual Dedicated DID (~₹599/mo) + ₹0.40–₹0.55/min masked call legs.</li>
+              <li><strong>Payment Gateway (Razorpay):</strong> Standard 2% per successful transaction (zero monthly maintenance fee).</li>
+              <li><strong>Capacity &amp; Fit:</strong> Sub-5ms PostGIS queries; comfortably supports 50–100 simultaneous active users. Zero cloud waste while validating Ahmedabad urban demand.</li>
+            </ul>
+          </div>
+
+          <!-- TIER 2: ROBUST MULTI-AZ ENTERPRISE -->
+          <div class="hosting-card card-enterprise">
+            <div class="hosting-head">
+              <span class="hosting-title">Option 2: High-Availability Scale (Robust)</span>
+              <span class="hosting-cost-badge cost-enterprise">~₹14,000 – ₹22,000 / mo</span>
+            </div>
+            <div class="hosting-meta">Enterprise Multi-AZ Redundancy (5,000+ Bookings/Month &amp; Multi-City)</div>
+            <ul class="hosting-list">
+              <li><strong>Managed AWS Multi-AZ Backend:</strong> AWS ECS Fargate container auto-scaling across 2 Availability Zones (~$50–$75/mo / ~₹4,200–₹6,300/mo).</li>
+              <li><strong>Managed PostgreSQL:</strong> AWS RDS PostgreSQL Multi-AZ (db.t4g.medium) with automated daily snapshots, automated failover, and Point-in-Time Recovery (~$70–$90/mo / ~₹5,900–₹7,500/mo).</li>
+              <li><strong>Managed Cache:</strong> AWS ElastiCache for Redis (cache.t4g.small) cluster (~$25–$35/mo).</li>
+              <li><strong>Security &amp; Edge:</strong> AWS CloudFront CDN + AWS WAF (Web Application Firewall) + Route 53 DNS.</li>
+              <li><strong>Telephony &amp; SMS:</strong> Dedicated enterprise SIP virtual trunks with automated telecom failover.</li>
+              <li><strong>Capacity &amp; Fit:</strong> 99.9% uptime SLA with zero-downtime rolling deploys. Absorbs intense 7:30 AM – 9:00 AM morning maid surges across multiple cities.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-accent" style="margin-top: 10px; margin-bottom: 0;">
+          <span>💡</span>
+          <div>
+            <strong>Architecture Recommendation:</strong> We strongly advise starting with <strong>Option 1 (Lean Starter @ ~₹3,000/month)</strong> for the November 8 launch. Because the codebase is fully containerized using Docker, migrating to <strong>Option 2 (Managed AWS Multi-AZ)</strong> involves <strong>zero code changes</strong> and can be completed in a few hours whenever transaction volumes warrant automated multi-zone failover.
+          </div>
         </div>
       </div>
     </div>
@@ -2052,7 +2204,7 @@ flowchart TB
               <td class="text-center">Nov 08</td>
             </tr>
             <tr style="background: var(--slate-100); font-weight: 800;">
-              <td colspan="2">Total Phase 1 Fixed Investment (Nov 8 Go-Live)</td>
+              <td colspan="2">Total Phase 1 Development Cost (Nov 8 Go-Live)</td>
               <td class="text-center">100%</td>
               <td class="text-right mono" style="color: var(--slate-900); font-size: 13px;">₹4,40,000</td>
               <td class="text-center">Nov 08</td>
