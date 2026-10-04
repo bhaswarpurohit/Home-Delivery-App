@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zippy: Commercial & Technical Implementation Proposal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm 8mm 10mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 8pt;
+        color: #94A3B8;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #0F172A;
+      background-color: #FFFFFF;
+      line-height: 1.4;
+      font-size: 9.8px;
+    }
+
+    .page {
+      width: 100%;
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 278mm;
+      position: relative;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    /* Running Header & Footer */
+    .page-running-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #E2E8F0;
+      padding-bottom: 3px;
+      margin-bottom: 6px;
+      font-size: 8px;
+      color: #64748B;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .page-running-footer {
+      margin-top: auto;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 3px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.5px;
+      color: #94A3B8;
+      font-weight: 500;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 55%, #312E81 100%);
+      color: #FFFFFF;
+      padding: 13px 15px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 130px;
+      height: 130px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 5px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 1.5px 6px;
+      border-radius: 9999px;
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .pill-indigo { background: rgba(99, 102, 241, 0.25); color: #C7D2FE; border: 1px solid rgba(165, 180, 252, 0.35); }
+    .pill-emerald { background: rgba(16, 185, 129, 0.25); color: #A7F3D0; border: 1px solid rgba(110, 231, 183, 0.35); }
+    .pill-amber { background: rgba(245, 158, 11, 0.25); color: #FDE68A; border: 1px solid rgba(251, 191, 36, 0.35); }
+    .pill-rose { background: rgba(244, 63, 94, 0.25); color: #FECDD3; border: 1px solid rgba(253, 164, 175, 0.35); }
+    .pill-cyan { background: rgba(6, 182, 212, 0.25); color: #A5F3FC; border: 1px solid rgba(103, 232, 249, 0.35); }
+
+    .hero-title {
+      font-size: 17.5px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin-bottom: 2px;
+      color: #FFFFFF;
+    }
+
+    .hero-subtitle {
+      font-size: 9.8px;
+      color: #CBD5E1;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    .hero-tagline-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(8, 145, 178, 0.25);
+      border-left: 3px solid #06B6D4;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #67E8F9;
+    }
+
+    /* Metric Cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .metric-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 5px 7px;
+      border-top: 3px solid #4F46E5;
+    }
+
+    .metric-label {
+      font-size: 7.5px;
+      font-weight: 700;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 1px;
+    }
+
+    .metric-val {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #0F172A;
+      line-height: 1.15;
+    }
+
+    .metric-sub {
+      font-size: 7.5px;
+      color: #64748B;
+      margin-top: 1px;
+    }
+
+    /* Section Headers */
+    .section-h {
+      font-size: 11px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-top: 5px;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 2px;
+    }
+
+    .section-h .h-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      background: #4F46E5;
+      color: #FFFFFF;
+      font-size: 8px;
+      font-weight: 800;
+      border-radius: 3px;
+    }
+
+    p {
+      margin-bottom: 3px;
+      color: #334155;
+      font-size: 9.3px;
+      line-height: 1.36;
+    }
+
+    .feature-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      padding: 5px 7px;
+      margin-bottom: 4px;
+    }
+
+    /* 3 Deliverables Grid */
+    .deliv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin: 4px 0 5px 0;
+    }
+
+    .deliv-box {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 6px 7px;
+      border-top: 2.5px solid #4F46E5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deliv-box.accent-box {
+      border-top-color: #06B6D4;
+      background: #FAFDFE;
+    }
+
+    .deliv-head-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 1px;
+    }
+
+    .deliv-head-title {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .deliv-head-tech {
+      font-size: 7.5px;
+      font-weight: 600;
+      color: #6366F1;
+      margin-bottom: 3px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .deliv-items {
+      list-style: none;
+      font-size: 8.3px;
+      color: #475569;
+    }
+
+    .deliv-items li {
+      margin-bottom: 2px;
+      position: relative;
+      padding-left: 8px;
+      line-height: 1.25;
+    }
+
+    .deliv-items li::before {
+      content: "•";
+      position: absolute;
+      left: 1px;
+      color: #4F46E5;
+      font-weight: 800;
+      font-size: 8px;
+    }
+
+    /* Notices / Callouts */
+    .notice {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-left: 3.5px solid #10B981;
+      border-radius: 5px;
+      padding: 4px 7px;
+      margin: 3.5px 0;
+      font-size: 8.8px;
+      color: #166534;
+      line-height: 1.3;
+    }
+
+    .notice-blue {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-left: 3.5px solid #3B82F6;
+      color: #1E40AF;
+    }
+
+    .notice-warn {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-left: 3.5px solid #F59E0B;
+      color: #92400E;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 3px 0 4.5px 0;
+      font-size: 8.8px;
+    }
+
+    th {
+      background: #F1F5F9;
+      color: #1E293B;
+      font-weight: 700;
+      text-align: left;
+      padding: 3px 4px;
+      border-top: 1px solid #CBD5E1;
+      border-bottom: 1px solid #CBD5E1;
+      font-size: 7.8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 2.8px 4px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #334155;
+      vertical-align: top;
+      line-height: 1.25;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #F8FAFC;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 1px 3.5px;
+      border-radius: 3px;
+      font-size: 7.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .b-blue { background: #EEF2FF; color: #3730A3; border: 1px solid #C7D2FE; }
+    .b-purple { background: #FAF5FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+    .b-green { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+    .b-amber { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+    .b-rose { background: #FFF1F2; color: #9F1239; border: 1px solid #FECDD3; }
+
+    /* Architecture Visual Diagram */
+    .arch-diagram {
+      background: #0B1120;
+      border: 1.5px solid #1E293B;
+      color: #F8FAFC;
+      border-radius: 7px;
+      padding: 8px 10px;
+      margin: 5px 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .arch-tier-box {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 5px;
+      padding: 5px 7px;
+      margin-bottom: 4px;
+      position: relative;
+    }
+
+    .arch-tier-1 { background: rgba(30, 41, 59, 0.7); border-left: 3px solid #6366F1; }
+    .arch-tier-2 { background: rgba(15, 23, 42, 0.85); border-left: 3px solid #06B6D4; }
+    .arch-tier-3 { background: rgba(2, 6, 23, 0.9); border-left: 3px solid #10B981; }
+
+    .arch-tier-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .arch-tier-title {
+      font-size: 8.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .arch-tier-1 .arch-tier-title { color: #A5B4FC; }
+    .arch-tier-2 .arch-tier-title { color: #67E8F9; }
+    .arch-tier-3 .arch-tier-title { color: #6EE7B7; }
+
+    .arch-tier-meta {
+      font-size: 7px;
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .arch-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    .arch-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+
+    .arch-cell {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 4px;
+      padding: 3.5px 5px;
+      text-align: center;
+    }
+
+    .arch-cell-title {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .arch-cell-sub {
+      font-size: 7px;
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 1px;
+    }
+
+    .arch-connector {
+      text-align: center;
+      font-size: 7px;
+      color: #64748B;
+      margin: 1.5px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    /* Workflow Flow Visual Diagram */
+    .flow-diagram-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin: 5px 0;
+    }
+
+    .flow-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+
+    .flow-step-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      padding: 5px 6px;
+      border-top: 2.5px solid #4F46E5;
+      position: relative;
+    }
+
+    .flow-step-num {
+      font-size: 7px;
+      font-weight: 800;
+      color: #4F46E5;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .flow-step-name {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 1px 0;
+    }
+
+    .flow-step-desc {
+      font-size: 7.5px;
+      color: #64748B;
+      line-height: 1.25;
+    }
+
+    /* Waterfall Steps Visual Box */
+    .waterfall-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .waterfall-col {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      padding: 5px 7px;
+    }
+
+    /* Signature Table */
+    .sign-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+      padding-top: 4px;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .sign-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      padding: 5px 7px;
+    }
+
+    .sign-role {
+      font-size: 7px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #64748B;
+      margin-bottom: 1px;
+    }
+
+    .sign-name {
+      font-size: 9px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .sign-desc {
+      font-size: 7px;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    .sign-underline {
+      border-bottom: 1px dashed #94A3B8;
+      margin-bottom: 2px;
+    }
+
+    .sign-meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 7px;
+      color: #64748B;
+    }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- =================================================================== -->
+  <!-- PAGE 1: EXECUTIVE PROPOSAL & 5-WEEK DELIVERY POD STRATEGY           -->
+  <!-- =================================================================== -->
+  <div class="page">
+    <div class="page-running-header">
+      <span>Zippy Platform Commercial &amp; Technical Proposal</span>
+      <span>5-Week Rapid-Strike Delivery • Target Go-Live: Nov 8, 2026</span>
+    </div>
+
+    <div class="hero-banner">
+      <div class="pill-group">
+        <span class="pill pill-rose">Hard Deadline: November 8, 2026</span>
+        <span class="pill pill-emerald">Turnkey: ₹4,40,000 INR</span>
+        <span class="pill pill-indigo">Lead (8 YOE) + 2 Helping Hands</span>
+        <span class="pill pill-amber">Ahmedabad Urban Corridors</span>
+      </div>
+      <div class="hero-title">Zippy: Hyperlocal 10-Minute Domestic Assistance Platform</div>
+      <div class="hero-subtitle">High-Velocity On-Demand Chores &amp; Verified Household Help for High-Density Residential Communities</div>
+      <div class="hero-tagline-box">
+        <span>⚡ Brand Proposition:</span>
+        <strong>"Your Home Chores, Handled in 10 Minutes Flat."</strong>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Target Go-Live Date</div>
+        <div class="metric-val" style="color: #E11D48;">Nov 8, 2026</div>
+        <div class="metric-sub">5 Weeks (34 Days Crash Sprint)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Engineering Pod</div>
+        <div class="metric-val">3 Specialists</div>
+        <div class="metric-sub">Lead (8 YOE) + 2 Helping Hands</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Fixed Turnkey Rate</div>
+        <div class="metric-val">₹4,40,000</div>
+        <div class="metric-sub">Option A: Core On-Demand MVP</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Defect Warranty</div>
+        <div class="metric-val">45 Days</div>
+        <div class="metric-sub">Production Bug Fixes Included</div>
+      </div>
+    </div>
+
+    <div class="section-h">
+      <span class="h-badge">1</span>
+      5-Week Rapid Delivery Feasibility: October 5 to November 8, 2026
+    </div>
+    <p>
+      Today is <strong>October 5, 2026</strong>. The client has requested a production launch date of <strong>November 8, 2026 (5 weeks / 34 calendar days)</strong>. Delivering three complete production applications (Customer iOS/Android, Vernacular Helper Android, Next.js Admin Console) and a robust NestJS/PostGIS backend requires <strong>~550–600 net engineering hours</strong>.
+    </p>
+    <p>
+      A solo developer working standard hours (40 hrs/wk) would require 14 weeks. To deliver by <strong>November 8 without compromising code quality, security, or testing</strong>, the project is structured as a <strong>Rapid-Strike Engineering Pod</strong>:
+    </p>
+
+    <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 6px; padding: 5px 8px; margin-bottom: 5px;">
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 6px;">
+        <div style="background: #FFFFFF; border-left: 3px solid #4F46E5; border-radius: 4px; padding: 4px 6px;">
+          <strong style="color: #1E1B4B; font-size: 8.5px;">👨‍💻 Principal Lead (8 YOE) — ~50h/wk</strong>
+          <p style="font-size: 7.5px; color: #475569; margin: 1px 0 0 0;">System architecture, NestJS backend, PostGIS dispatch waterfall, security FSM, Razorpay/Twilio integrations, cloud infra, store approvals.</p>
+        </div>
+        <div style="background: #FFFFFF; border-left: 3px solid #06B6D4; border-radius: 4px; padding: 4px 6px;">
+          <strong style="color: #0E7490; font-size: 8.5px;">📱 Helping Hand 1 (Mobile) — ~40h/wk</strong>
+          <p style="font-size: 7.5px; color: #475569; margin: 1px 0 0 0;">Dedicated React Native / Expo UI engineer building Customer &amp; Helper screens, vernacular UI (GU/HI/EN), audio alert modals.</p>
+        </div>
+        <div style="background: #FFFFFF; border-left: 3px solid #10B981; border-radius: 4px; padding: 4px 6px;">
+          <strong style="color: #065F46; font-size: 8.5px;">🧪 Helping Hand 2 (QA/Web) — ~32h/wk</strong>
+          <p style="font-size: 7.5px; color: #475569; margin: 1px 0 0 0;">Next.js Admin dashboard, KYC document viewer, multi-device testing on low-end Android smartphones across Ahmedabad 4G/5G.</p>
+        </div>
+      </div>
+      <div style="font-size: 7.5px; color: #4F46E5; font-weight: 700; margin-top: 3px; text-align: center;">
+        ⚡ Combined Velocity: 120–125 Hours/Week × 5 Weeks = ~600 Production Hours Delivered by November 8!
+      </div>
+    </div>
+
+    <div class="section-h">
+      <span class="h-badge">2</span>
+      The 3 Core Platform Deliverables
+    </div>
+
+    <div class="deliv-grid">
+      <div class="deliv-box accent-box">
+        <div class="deliv-head-row">
+          <span style="font-size: 10px;">📱</span>
+          <span class="deliv-head-title">Customer Mobile App</span>
+        </div>
+        <div class="deliv-head-tech">React Native • Expo SDK 53+ (iOS &amp; Android)</div>
+        <ul class="deliv-items">
+          <li><strong>Sub-45s 3-Tap Checkout:</strong> Service pick, saved address, &amp; 1-tap UPI payment.</li>
+          <li><strong>Dual Booking Engine:</strong> Hourly help (1–4 hrs) + checklist OR quick chore packs.</li>
+          <li><strong>Two-Phase Radar:</strong> Scanning wave (0–60s) → live map route &amp; countdown timer.</li>
+          <li><strong>In-App Call Masking:</strong> Twilio/Exotel virtual relay hiding private mobile numbers.</li>
+          <li><strong>Ratings &amp; Favorites:</strong> 5-star reviews + 30s priority window to rebook favorites.</li>
+          <li><strong>Delay Compensation:</strong> Auto-credit ₹50 if arrival exceeds SLA by &gt;10 min.</li>
+        </ul>
+      </div>
+
+      <div class="deliv-box">
+        <div class="deliv-head-row">
+          <span style="font-size: 10px;">👷</span>
+          <span class="deliv-head-title">Helper Partner App</span>
+        </div>
+        <div class="deliv-head-tech">React Native • Android-First (Hermes Engine)</div>
+        <ul class="deliv-items">
+          <li><strong>Trilingual Vernacular UI:</strong> Gujarati, Hindi, English with intuitive icons.</li>
+          <li><strong>45s Full-Screen Audio Modal:</strong> Loud ringtone alert with payout &amp; task scope.</li>
+          <li><strong>200m Geofence Lock:</strong> Device GPS coordinates validated upon OTP submission.</li>
+          <li><strong>Partner SOS ("Kavach"):</strong> Persistent emergency safety button alerting Admin Desk.</li>
+          <li><strong>Masked Number Relay:</strong> In-app voice bridge protecting helper's private number.</li>
+          <li><strong>Earnings &amp; Shift Ledger:</strong> Duty toggle (Online/Offline) and daily bank earnings.</li>
+        </ul>
+      </div>
+
+      <div class="deliv-box">
+        <div class="deliv-head-row">
+          <span style="font-size: 10px;">🖥️</span>
+          <span class="deliv-head-title">Admin Operations Console</span>
+        </div>
+        <div class="deliv-head-tech">Next.js 15+ App Router • Tailwind • shadcn/ui</div>
+        <ul class="deliv-items">
+          <li><strong>Live Dispatch Map:</strong> Real-time overview of active bookings, helpers, &amp; queues.</li>
+          <li><strong>Manual Overrides:</strong> Instant partner reassignment for unassigned edge cases.</li>
+          <li><strong>KYC Document Audit Desk:</strong> Aadhaar &amp; police check review via expiring S3 links.</li>
+          <li><strong>Dynamic Pricing Catalog:</strong> Real-time control over hourly fees, chores, commissions.</li>
+          <li><strong>Delay Compensation Audit:</strong> Automated logging of late arrivals &amp; ₹50 credits.</li>
+          <li><strong>Financial Ledger &amp; CSV Export:</strong> 1-click batch net banking CSV export for payouts.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-running-footer">
+      <span>Zippy: On-Demand Domestic Help Platform • Ahmedabad, Gujarat</span>
+      <span>Page 1 of 5</span>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- PAGE 2: ARCHITECTURE BLUEPRINT & SUCCINCT SNABBIT PARITY            -->
+  <!-- =================================================================== -->
+  <div class="page">
+    <div class="page-running-header">
+      <span>Technical Architecture &amp; Platform Specifications</span>
+      <span>System Blueprint &amp; Snabbit Parity Benchmarking</span>
+    </div>
+
+    <div class="section-h">
+      <span class="h-badge">3</span>
+      High-Level Technical Architecture: Unified Turborepo Monorepo
+    </div>
+    <p>
+      The platform is organized as a unified TypeScript monorepo using <strong>Turborepo</strong>. This eliminates API drift across client frontends and the server, sharing runtime Zod validation schemas across all platforms:
+    </p>
+
+    <!-- ENHANCED ARCHITECTURE BLUEPRINT -->
+    <div class="arch-diagram">
+      <!-- TIER 1 -->
+      <div class="arch-tier-box arch-tier-1">
+        <div class="arch-tier-head">
+          <span class="arch-tier-title">Tier 1: Turborepo Frontend Applications</span>
+          <span class="arch-tier-meta">React Native (Expo SDK 53+) &amp; Next.js 15+</span>
+        </div>
+        <div class="arch-grid-3">
+          <div class="arch-cell">
+            <div class="arch-cell-title">Customer Mobile App</div>
+            <div class="arch-cell-sub">iOS &amp; Android • Hermes • 3-Tap UX</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">Helper Partner App</div>
+            <div class="arch-cell-sub">Vernacular (GU/HI/EN) • Audio Alerts</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">Admin Operations Console</div>
+            <div class="arch-cell-sub">Next.js 15 • Radix/shadcn • Live Radar</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">
+        ↕ Shared Workspace Packages: packages/types (DTOs) • packages/validation (Zod) • packages/api-client ↕
+      </div>
+
+      <!-- TIER 2 -->
+      <div class="arch-tier-box arch-tier-2">
+        <div class="arch-tier-head">
+          <span class="arch-tier-title">Tier 2: NestJS 11 Modular Monolith (Node.js 22 LTS)</span>
+          <span class="arch-tier-meta">Sub-10ms In-Memory IPC • Server-Authoritative FSM</span>
+        </div>
+        <div class="arch-grid-4">
+          <div class="arch-cell">
+            <div class="arch-cell-title">Auth &amp; SMS OTP</div>
+            <div class="arch-cell-sub">MSG91 • JWT Rotation</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">Booking FSM Engine</div>
+            <div class="arch-cell-sub">Authoritative States</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">Geospatial Dispatch</div>
+            <div class="arch-cell-sub">PostGIS Waterfall 800m</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">Payments &amp; Masking</div>
+            <div class="arch-cell-sub">Razorpay • Twilio Relay</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">
+        ↕ Spatial GiST Queries • Distributed BullMQ Waterfall • Encrypted Object Storage ↕
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="arch-tier-box arch-tier-3">
+        <div class="arch-tier-head">
+          <span class="arch-tier-title">Tier 3: Persistence, Distributed State &amp; Telephony Relay</span>
+          <span class="arch-tier-meta">ACID Financial Ledger • High-Throughput Cache</span>
+        </div>
+        <div class="arch-grid-4">
+          <div class="arch-cell">
+            <div class="arch-cell-title">PostgreSQL 17 + PostGIS</div>
+            <div class="arch-cell-sub">Spatial GiST • ACID Ledger</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">Redis 8 + BullMQ 5+</div>
+            <div class="arch-cell-sub">45s Timers • Slot Locks</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">AWS S3 / Spaces</div>
+            <div class="arch-cell-sub">KYC Docs (15m Expiring)</div>
+          </div>
+          <div class="arch-cell">
+            <div class="arch-cell-title">FCM &amp; Twilio Relay</div>
+            <div class="arch-cell-sub">Audio Rings • Anonymized Voice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-h">
+      <span class="h-badge">4</span>
+      Succinct Feature Comparison: Snabbit vs. Zippy (Launch by Nov 8)
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 17%;">Feature Domain</th>
+          <th style="width: 25%;">Snabbit Benchmark</th>
+          <th style="width: 45%;">Zippy Implementation (Delivered by Nov 8)</th>
+          <th style="width: 13%;" class="text-center">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dispatch SLA</strong></td>
+          <td>10–15 min arrival via local clusters</td>
+          <td><strong>Tiered PostGIS Waterfall:</strong> 800m primary geofence; auto-expands to 1.5km after 45s.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Booking Model</strong></td>
+          <td>Hourly help (1–4 hrs) + chores &amp; quick packs</td>
+          <td><strong>Dual Booking Engine:</strong> Flexible 1–4 hr domestic help + task checklist OR quick chore packs.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Rapid Checkout</strong></td>
+          <td>Multi-step form &amp; standard cart</td>
+          <td><strong>Swish 3-Tap Flow (&lt;45s):</strong> Service pick → Address confirmation → Razorpay UPI Intent.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Live Tracking</strong></td>
+          <td>Text-based status steps</td>
+          <td><strong>Two-Phase Radar:</strong> Phase A (0–60s) radar wave scanning → Phase B (1–10m) live map route &amp; timer.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Attendance Security</strong></td>
+          <td>Dual OTP at arrival &amp; completion</td>
+          <td><strong>Dual-OTP &amp; 200m Geofence Lock:</strong> Server-validated 4-digit codes in Redis + GPS radius check.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Call Masking &amp; Privacy</strong></td>
+          <td>In-app masked calling hiding real numbers</td>
+          <td><strong>Twilio/Exotel Voice Relay:</strong> Virtual number bridge protecting private numbers for customers &amp; helpers.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ratings &amp; Reviews</strong></td>
+          <td>1–5 stars, feedback tags, written reviews</td>
+          <td><strong>Post-Job Feedback &amp; Score:</strong> 5-star ratings, tags (*Punctual, Thorough*), helper quality scoring.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Favorite Helper</strong></td>
+          <td>Rebook preferred helpers</td>
+          <td><strong>Favorite Expert Priority:</strong> 30s priority window to customer's favorite helper before open pool.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>SLA Delay Guarantee</strong></td>
+          <td>Delay credits for late arrival</td>
+          <td><strong>Helper Delay Compensation:</strong> Automated ₹50 credit to customer account if helper arrival &gt;10m late.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Trust Badges &amp; Safety</strong></td>
+          <td>Verified profile badges + SOS button</td>
+          <td><strong>Badges &amp; "Kavach" SOS Rail:</strong> Aadhaar/Police badges + persistent in-app SOS alerting Admin Desk.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Rescheduling</strong></td>
+          <td>Self-service prior to dispatch</td>
+          <td><strong>30-Min Rescheduling Window:</strong> Zero-penalty in-app rescheduling up to 30 mins before slot start.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Vernacular UI</strong></td>
+          <td>Multilingual helper app</td>
+          <td><strong>Trilingual Helper App:</strong> Gujarati, Hindi, English UI + 45s loud audio ringtone offer alert modal.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr>
+          <td><strong>Admin Operations</strong></td>
+          <td>Ops dashboard &amp; batch bank payouts</td>
+          <td><strong>Next.js 15 Admin Console:</strong> Live dispatch map, manual overrides, KYC review desk, CSV bank export.</td>
+          <td class="text-center"><span class="badge b-green">Nov 8</span></td>
+        </tr>
+        <tr style="background: #FFFBEB;">
+          <td><strong>Monthly Subscriptions</strong></td>
+          <td>30-day recurring daily maid retainers</td>
+          <td><strong>Phase 2 Expansion:</strong> Monthly recurring maid scheduler with leave calendars &amp; vacation pauses.</td>
+          <td class="text-center"><span class="badge b-amber">Phase 2</span></td>
+        </tr>
+        <tr style="background: #FFFBEB;">
+          <td><strong>Substitute Auto-Dispatch</strong></td>
+          <td>Auto-dispatches backup maid by 7:45 AM</td>
+          <td><strong>Phase 2 Expansion:</strong> Workforce ERP auto-dispatching replacement maid from local cluster if absent.</td>
+          <td class="text-center"><span class="badge b-amber">Phase 2</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-running-footer">
+      <span>Zippy: On-Demand Domestic Help Platform • Ahmedabad, Gujarat</span>
+      <span>Page 2 of 5</span>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- PAGE 3: OPERATIONAL SAFEGUARDS & WORKFLOW ENGINES                   -->
+  <!-- =================================================================== -->
+  <div class="page">
+    <div class="page-running-header">
+      <span>Core Operational Safeguards &amp; Workflow Engines</span>
+      <span>State Machine, Dispatch Waterfall &amp; Verification Protocol</span>
+    </div>
+
+    <div class="section-h">
+      <span class="h-badge">5</span>
+      Core Operational Safeguards &amp; Workflow Engines
+    </div>
+
+    <p style="font-weight: 700; color: #0F172A; margin-bottom: 2px;">5.1 Authoritative Booking Finite State Machine (FSM)</p>
+    <p>
+      All booking mutations are governed strictly by the NestJS backend; client applications cannot mutate statuses directly. Every state transition is cryptographically audited through server commands to prevent skipped steps, fraudulent billing, or double payouts:
+    </p>
+
+    <!-- FSM FLOW BOXES -->
+    <div class="flow-diagram-box">
+      <div class="flow-steps-grid">
+        <div class="flow-step-card">
+          <div class="flow-step-num">Stage 1</div>
+          <div class="flow-step-name">REQUESTED &amp; SEARCHING</div>
+          <div class="flow-step-desc">Customer completes 3-tap checkout. Payment verified via Razorpay webhook. BullMQ checks favorites, then triggers 800m PostGIS query.</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">Stage 2</div>
+          <div class="flow-step-name">OFFERED_HELPER</div>
+          <div class="flow-step-desc">Locked to top candidate for 45s. Helper app rings audible alert modal. Auto-cascades to Candidate 2 upon timeout.</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">Stage 3</div>
+          <div class="flow-step-name">IN_TRANSIT &amp; ARRIVED</div>
+          <div class="flow-step-desc">Helper marks transit. Masked call active. Upon arrival, server verifies device GPS coordinates are within 200m of customer address.</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">Stage 4</div>
+          <div class="flow-step-name">IN_PROGRESS &amp; REVIEWED</div>
+          <div class="flow-step-desc">Start-Job OTP validated in Redis. End-Job OTP validated to calculate duration, credit partner ledger, and open customer rating screen.</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-weight: 700; color: #0F172A; margin-top: 5px; margin-bottom: 2px;">5.2 Tiered Geospatial Dispatch Waterfall with Favorite Helper Priority</p>
+    <p>
+      Achieving a 10-minute arrival SLA requires searching tight, localized nano-markets rather than broad citywide radiuses:
+    </p>
+
+    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 5px 8px; margin-bottom: 5px;">
+      <ul style="font-size: 8.8px; color: #475569; padding-left: 12px; line-height: 1.32;">
+        <li style="margin-bottom: 2px;"><strong>Step 0: Favorite Helper Priority (30s Window):</strong> If customer has marked a previous helper as favorite and they are online within corridor, system gives them an exclusive 30s priority booking offer.</li>
+        <li style="margin-bottom: 2px;"><strong>Step 1: Primary Nano-Market Corridor (r₁ ≤ 800m):</strong> PostGIS queries for partners toggled <code>ONLINE</code>, verified for skill category, within 800m. Ranks top 10 candidates by proximity, rating, and completion rate.</li>
+        <li style="margin-bottom: 2px;"><strong>Step 2: 45-Second Audible Lockout:</strong> BullMQ locks booking to Candidate 1 and fires high-priority FCM notification with loud audio ringtone. Helper App presents 45-second modal displaying task scope, distance, and earnings.</li>
+        <li style="margin-bottom: 2px;"><strong>Step 3: Secondary Radial Expansion (r₂ ≤ 1,500m):</strong> If Candidate 1 declines or times out, offer cascades immediately to Candidate 2. If primary pool is exhausted, radius widens to 1,500m, adjusting customer ETA to 15 minutes.</li>
+        <li><strong>Step 4: Operations Board Escalation:</strong> If no partner accepts in secondary pool, booking transitions to <code>UNASSIGNED</code>, alerting Admin Operations Console for manual override.</li>
+      </ul>
+    </div>
+
+    <!-- GEOSPATIAL WATERFALL VISUAL DIAGRAM -->
+    <div style="background: #0F172A; color: #F8FAFC; border-radius: 6px; padding: 6px 8px; margin: 4px 0;">
+      <div style="font-size: 8px; font-weight: 700; color: #818CF8; text-transform: uppercase; margin-bottom: 3px;">
+        Visual Dispatch Flow: Sub-10 Minute Allocation Cycle
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; font-size: 7.5px; text-align: center;">
+        <div style="background: rgba(255,255,255,0.08); border-radius: 4px; padding: 4px;">
+          <div style="color: #FBBF24; font-weight: 700;">★ FAVORITE (30s)</div>
+          <div style="color: #94A3B8;">Check Customer Favorites</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border-radius: 4px; padding: 4px;">
+          <div style="color: #34D399; font-weight: 700;">PRIMARY (800m)</div>
+          <div style="color: #94A3B8;">45s Audible Lockout</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border-radius: 4px; padding: 4px;">
+          <div style="color: #60A5FA; font-weight: 700;">SECONDARY (1.5km)</div>
+          <div style="color: #94A3B8;">ETA Adjusts to 15m</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border-radius: 4px; padding: 4px;">
+          <div style="color: #F87171; font-weight: 700;">OPS ESCALATION</div>
+          <div style="color: #94A3B8;">Manual Admin Dispatch</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-weight: 700; color: #0F172A; margin-top: 5px; margin-bottom: 2px;">5.3 Cryptographic Dual-OTP &amp; 200m Geofence Verification Protocol</p>
+    <p>
+      To eliminate "buddy punching," phantom arrivals, and disputed duration claims, task execution enforces dual physical and cryptographic gates:
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px;">
+      <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 5px; padding: 5px 7px; border-left: 3px solid #4F46E5;">
+        <div style="font-size: 8.8px; font-weight: 700; color: #0F172A; margin-bottom: 2px;">Verification Lifecycle</div>
+        <p style="font-size: 8px; margin-bottom: 2px;">• <strong>Arrival Check:</strong> Helper taps ARRIVED. Server validates device GPS coordinates are within 200m of the residence.</p>
+        <p style="font-size: 8px; margin-bottom: 2px;">• <strong>Start-Job OTP:</strong> Customer App generates a 4-digit code (10-min TTL). Customer shares verbally at door; helper enters it, verified against Redis before moving to <code>IN_PROGRESS</code>.</p>
+        <p style="font-size: 8px; margin-bottom: 0;">• <strong>End-Job OTP:</strong> Matching code validated upon completion to record authoritative timestamp and credit earnings ledger.</p>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 5px; padding: 5px 7px; border-left: 3px solid #EF4444;">
+        <div style="font-size: 8.8px; font-weight: 700; color: #0F172A; margin-bottom: 2px;">Anti-Fraud Safeguards</div>
+        <p style="font-size: 8px; margin-bottom: 2px;">• <strong>Geofence Violation Audit:</strong> Submitting an OTP beyond 200m generates an immutable <code>PROXIMITY_VIOLATION</code> audit flag, pausing automated payout disbursement until manager review.</p>
+        <p style="font-size: 8px; margin-bottom: 2px;">• <strong>Brute-Force Lockout:</strong> 3 consecutive failed OTP entries triggers an automatic 5-minute system cooldown lockout.</p>
+        <p style="font-size: 8px; margin-bottom: 0;">• <strong>Delay Compensation Trigger:</strong> If arrival exceeds promised ETA by &gt;10 mins, system auto-credits ₹50 to customer account.</p>
+      </div>
+    </div>
+
+    <div class="notice notice-warn" style="margin-top: 3px;">
+      <strong>Worker Safety Rail ("Kavach") &amp; Call Masking:</strong> The Helper Partner App features a persistent emergency SOS button on active jobs. Tapping it captures live GPS coordinates and fires high-priority audible alerts across all active Admin Operations screens. All voice communications between customer and partner are anonymized via Twilio/Exotel virtual telephony relay, ensuring zero leakage of personal phone numbers.
+    </div>
+
+    <div class="page-running-footer">
+      <span>Zippy: On-Demand Domestic Help Platform • Ahmedabad, Gujarat</span>
+      <span>Page 3 of 5</span>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- PAGE 4: COMMERCIAL JUSTIFICATION & EXACT SNABBIT PRICING            -->
+  <!-- =================================================================== -->
+  <div class="page">
+    <div class="page-running-header">
+      <span>Commercial Justification &amp; Snabbit Parity Pricing</span>
+      <span>8 YOE Lead Freelancer + 2 Helping Hands Economics</span>
+    </div>
+
+    <div class="section-h">
+      <span class="h-badge">6</span>
+      Commercial Justification for an 8 YOE Lead Freelancer + 2 Helping Hands
+    </div>
+    <p>
+      Delivering a multi-platform production ecosystem in <strong>5 weeks (by November 8)</strong> requires a coordinated 3-person rapid development pod. At <strong>₹4,40,000 INR</strong>, the pricing is fair, transparent, and completely justified:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Role &amp; Seniority</th>
+          <th style="width: 17%;">Hours (5 Wks)</th>
+          <th style="width: 17%;">Standard Rate</th>
+          <th style="width: 15%;">Allocation</th>
+          <th style="width: 26%;">Core Responsibilities</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Principal Lead (8 YOE)</strong></td>
+          <td>~250 hrs (50h/wk)</td>
+          <td>₹1,500–₹2,000/hr</td>
+          <td><strong style="color: #4F46E5;">₹2,60,000</strong></td>
+          <td>System architecture, NestJS backend, PostGIS dispatch waterfall, FSM security, payments, Twilio call masking, cloud DevOps &amp; store approvals.</td>
+        </tr>
+        <tr>
+          <td><strong>Helping Hand 1 (Mobile)</strong></td>
+          <td>~190 hrs (38h/wk)</td>
+          <td>₹600–₹800/hr</td>
+          <td><strong style="color: #0E7490;">₹1,10,000</strong></td>
+          <td>Dedicated React Native / Expo UI specialist scaffolding Customer &amp; Helper mobile interfaces and vernacular flows.</td>
+        </tr>
+        <tr>
+          <td><strong>Helping Hand 2 (Web/QA)</strong></td>
+          <td>~160 hrs (32h/wk)</td>
+          <td>₹400–₹550/hr</td>
+          <td><strong style="color: #065F46;">₹70,000</strong></td>
+          <td>Next.js 15 Admin dashboard, KYC document viewer, real device testing on budget Android hardware across Gujarat networks.</td>
+        </tr>
+        <tr style="background: #F1F5F9; font-weight: 700;">
+          <td><strong>Total Fixed Turnkey Investment</strong></td>
+          <td><strong>~600 Net Hours</strong></td>
+          <td><strong>Effective ~₹733/hr</strong></td>
+          <td><strong style="color: #4F46E5; font-size: 10px;">₹4,40,000</strong></td>
+          <td><strong>Complete Turnkey Platform Delivered by Nov 8, 2026</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notice notice-blue" style="margin: 3px 0;">
+      <strong>Pod Cost Transparency:</strong> Over <strong>40% of the turnkey fee (₹1,80,000)</strong> is paid directly to two vetted specialist subcontractors. The lead architect retains ₹2,60,000 for 5 weeks of 50–55h crunch weeks (~₹1,000/hr)—a substantial discount from standard senior consultancy rates (₹1,800–₹2,500/hr).
+    </div>
+
+    <div class="section-h" style="margin-top: 5px;">
+      <span class="h-badge">7</span>
+      What Should Pricing Be for an "EXACT Snabbit Match"?
+    </div>
+    <p>
+      The client asked: <em>"What should pricing be for exactly like Snabbit match?"</em> Snabbit operates <strong>two fundamentally different operational engines</strong>:
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px;">
+      <div style="background: #F0FDF4; border: 1.5px solid #86EFAC; border-radius: 5px; padding: 5px 7px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+          <strong style="color: #166534; font-size: 9.2px;">OPTION A: CORE ON-DEMAND MVP</strong>
+          <span class="badge b-green">₹4,40,000 INR</span>
+        </div>
+        <div style="font-size: 7.5px; color: #15803D; font-weight: 700; margin-bottom: 2px;">5 Weeks (Delivered Nov 8, 2026) • ~600 Net Hours</div>
+        <ul style="font-size: 7.8px; color: #166534; padding-left: 10px; line-height: 1.25;">
+          <li>10–15 min radial dispatch (800m/1.5km PostGIS waterfall)</li>
+          <li>Dual Booking: Hourly help (1–4 hrs) + Quick chore packs</li>
+          <li>Swish 3-tap rapid checkout &amp; animated radar tracking</li>
+          <li>Dual-OTP attendance &amp; 200m GPS geofencing</li>
+          <li><strong>In-app call masking</strong> (Twilio/Exotel virtual relay)</li>
+          <li><strong>Post-job 1–5 star ratings, feedback tags &amp; reviews</strong></li>
+          <li><strong>Favorite helper rebooking with 30s priority window</strong></li>
+          <li><strong>Helper delay compensation</strong> (₹50 SLA auto-credit)</li>
+          <li><strong>Profile verification trust badges</strong> &amp; "Kavach" SOS rail</li>
+        </ul>
+      </div>
+
+      <div style="background: #EFF6FF; border: 1.5px solid #93C5FD; border-radius: 5px; padding: 5px 7px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+          <strong style="color: #1E40AF; font-size: 9.2px;">OPTION B: EXACT 1:1 SNABBIT MATCH</strong>
+          <span class="badge b-blue">₹7,20,000 INR</span>
+        </div>
+        <div style="font-size: 7.5px; color: #1D4ED8; font-weight: 700; margin-bottom: 2px;">11 Weeks (Delivered Dec 20, 2026) • ~1,000 Net Hours</div>
+        <ul style="font-size: 7.8px; color: #1E40AF; padding-left: 10px; line-height: 1.25;">
+          <li><strong>Everything in Option A (Full On-Demand Core) PLUS:</strong></li>
+          <li><strong>30-Day Recurring Monthly Maid Subscription Engine</strong></li>
+          <li><strong>Automated Substitute Helper Auto-Dispatch ERP:</strong> If assigned maid misses 7:45 AM check-in, system auto-dispatches backup helper!</li>
+          <li><strong>Maid Shift, Leave &amp; Vacation Attendance Calendars</strong></li>
+          <li><strong>Customer Vacation Pause:</strong> 1–14 day pause with auto-extension</li>
+          <li><strong>In-App Customer Prepaid Wallet</strong> for auto-debits &amp; credits</li>
+          <li><strong>Customer Viral Referral Engine ("Invite &amp; Earn")</strong></li>
+          <li><strong>Automated e-KYC:</strong> DigiLocker UIDAI &amp; IDfy background check</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ENGINE COMPARISON VISUAL -->
+    <div style="background: #F1F5F9; border: 1px solid #CBD5E1; border-radius: 5px; padding: 4px 6px; margin: 3px 0;">
+      <div style="display: flex; justify-content: space-between; font-size: 7.5px; color: #334155; font-weight: 600;">
+        <span>🎯 <strong>Engine 1 (On-Demand):</strong> Fast consumer acquisition, high turnover, low ops burden.</span>
+        <span>⚙️ <strong>Engine 2 (Subscriptions):</strong> High LTV, requires 150+ local helpers to avoid substitute failure.</span>
+      </div>
+    </div>
+
+    <div class="notice notice-warn" style="margin-top: 3px;">
+      <strong>Why Subscriptions CANNOT Launch on November 8:</strong> An automated substitute maid auto-dispatch system requires an enterprise workforce ERP and 150+ active verified helpers in a tight 3km corridor. Launching this before establishing helper supply will cause dispatch failure. We recommend contracting <strong>Phase 1 (₹4,40,000)</strong> for the <strong>November 8 launch</strong>, followed by the <strong>Phase 2 Subscription ERP Add-On (+₹2,80,000)</strong> once liquidity is established. <em>(Total combo: ₹7,20,000 INR).</em>
+    </div>
+
+    <div class="page-running-footer">
+      <span>Zippy: On-Demand Domestic Help Platform • Ahmedabad, Gujarat</span>
+      <span>Page 4 of 5</span>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- PAGE 5: ROADMAP, COMMERCIALS & AGREEMENT SIGN-OFF                   -->
+  <!-- =================================================================== -->
+  <div class="page">
+    <div class="page-running-header">
+      <span>Delivery Roadmap, Commercial Investment &amp; Governance</span>
+      <span>5-Week Rapid-Strike Delivery (Oct 5 – Nov 8, 2026)</span>
+    </div>
+
+    <div class="section-h" style="margin-top: 4px; margin-bottom: 2px;">
+      <span class="h-badge">8</span>
+      5-Week Accelerated Delivery Roadmap (Target Launch: November 8, 2026)
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 14%;">Week</th>
+          <th style="width: 25%;">Focus Area</th>
+          <th style="width: 61%;">Key Engineering Deliverables &amp; Milestones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Week 1</strong> (Oct 5–11)</td>
+          <td><strong>Architecture &amp; Core APIs</strong></td>
+          <td>Turborepo setup, PostgreSQL 17 schema, PostGIS spatial indexing, shared Zod contracts, NestJS 11 backend auth module (MSG91 SMS), and approved Figma design system. Pod staffing onboarded.</td>
+        </tr>
+        <tr>
+          <td><strong>Week 2</strong> (Oct 12–18)</td>
+          <td><strong>Mobile Shells &amp; Dual FSM</strong></td>
+          <td>Customer React Native app shell (hourly help + chore checklists), Helper Partner App with trilingual UI (GU/HI/EN), server booking state machine, and Razorpay standard SDK integration.</td>
+        </tr>
+        <tr>
+          <td><strong>Week 3</strong> (Oct 19–25)</td>
+          <td><strong>Waterfall &amp; Call Masking</strong></td>
+          <td>PostGIS 800m nano-market spatial waterfall with BullMQ 45s timer, Swish two-phase animated radar, Twilio/Exotel masked voice bridge, and Helper 45s full-screen audible ringtone modal.</td>
+        </tr>
+        <tr>
+          <td><strong>Week 4</strong> (Oct 26–Nov 1)</td>
+          <td><strong>Dual-OTP &amp; Admin Desk</strong></td>
+          <td>Cryptographic Start/End OTP verification, 200m GPS geofence checks, in-app 30-min self-service rescheduling, ₹50 delay compensation logic, ratings/reviews, and Next.js 15 Admin Operations Web Portal.</td>
+        </tr>
+        <tr>
+          <td><strong>Week 5</strong> (Nov 2–8)</td>
+          <td><strong>Hardening &amp; Production Go-Live</strong></td>
+          <td>Multi-stage Docker deployment on client cloud (AWS/DigitalOcean), Apple TestFlight &amp; Google Play Closed Testing compliance, store submissions, database seeding, and handover on <strong>November 8</strong>.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-h" style="margin-top: 4px; margin-bottom: 2px;">
+      <span class="h-badge">9</span>
+      Commercial Milestone Payment Schedule (Aligned with 5-Week Pod Cash Flow)
+    </div>
+
+    <table style="margin-bottom: 3px;">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Milestone Gate</th>
+          <th style="width: 45%;">Deliverable Scope &amp; Acceptance Package</th>
+          <th style="width: 10%;" class="text-center">Share</th>
+          <th style="width: 12%;" class="text-right">Amount</th>
+          <th style="width: 8%;" class="text-center">Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>M1: Kickoff &amp; Architecture</strong></td>
+          <td>Turborepo setup, PostgreSQL 17 schema, PostGIS spatial indexes, shared Zod packages, approved Figma design.</td>
+          <td class="text-center">30%</td>
+          <td class="text-right mono">₹1,32,000</td>
+          <td class="text-center">Oct 11</td>
+        </tr>
+        <tr>
+          <td><strong>M2: Core Platform Alpha</strong></td>
+          <td>Modular backend deployed; functional Customer and vernacular Helper app shells with live authentication.</td>
+          <td class="text-center">25%</td>
+          <td class="text-right mono">₹1,10,000</td>
+          <td class="text-center">Oct 18</td>
+        </tr>
+        <tr>
+          <td><strong>M3: Functional Beta Platform</strong></td>
+          <td>End-to-end booking (hourly + chore), PostGIS waterfall dispatch, Swish radar, Razorpay, call masking, dual-OTP.</td>
+          <td class="text-center">25%</td>
+          <td class="text-right mono">₹1,10,000</td>
+          <td class="text-center">Nov 01</td>
+        </tr>
+        <tr>
+          <td><strong>M4: Production Handover</strong></td>
+          <td>Admin portal, ratings, delay compensation, app store submissions/approvals, repo transfer, handover playbooks.</td>
+          <td class="text-center">20%</td>
+          <td class="text-right mono">₹88,000</td>
+          <td class="text-center">Nov 08</td>
+        </tr>
+        <tr style="background: #F1F5F9; font-weight: 700;">
+          <td colspan="2"><strong>Total Turnkey Fixed Investment (Delivered by Nov 8, 2026)</strong></td>
+          <td class="text-center"><strong>100%</strong></td>
+          <td class="text-right mono" style="color: #4F46E5; font-size: 10px;"><strong>₹4,40,000</strong></td>
+          <td class="text-center"><strong>Nov 08</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-h" style="margin-top: 3px; margin-bottom: 2px;">
+      <span class="h-badge">10</span>
+      Contractual Governance, IP Ownership &amp; Warranty Terms
+    </div>
+    <ul style="font-size: 7.5px; color: #475569; padding-left: 12px; margin-bottom: 3px; line-height: 1.2;">
+      <li><strong>100% Day-One Intellectual Property Ownership:</strong> All source code, database migrations, configuration scripts, and assets are committed directly to a client-owned Git repository from project kickoff.</li>
+      <li><strong>Developer Store Accounts:</strong> Client registers directly for Apple Developer ($99/year) and Google Play ($25 one-time) accounts, maintaining 100% direct ownership of store listings, user reviews, and app reputation.</li>
+      <li><strong>Pass-Through Infrastructure Costs:</strong> Cloud hosting (AWS/DigitalOcean), transactional SMS (MSG91), telephony minutes (Twilio/Exotel), and payment processing (Razorpay) are billed directly to client corporate accounts at actuals.</li>
+      <li><strong>45-Day Production Defect Warranty:</strong> Commencing immediately upon public app store availability, covering fixes for reproducible crashes, server API errors, and initial store compliance updates.</li>
+    </ul>
+
+    <!-- FORMAL SIGNATURE BLOCK -->
+    <div class="sign-table">
+      <div class="sign-box">
+        <div class="sign-role">For The Client</div>
+        <div class="sign-name">Authorized Representative</div>
+        <div class="sign-desc">Client Stakeholder / Project Sponsor</div>
+        <div class="sign-underline"></div>
+        <div class="sign-meta-row">
+          <span>Signature: _______________________</span>
+          <span>Date: ____ / ____ / 2026</span>
+        </div>
+      </div>
+
+      <div class="sign-box">
+        <div class="sign-role">For The Engineering Lead</div>
+        <div class="sign-name">Principal Full-Stack Engineer (8 YOE)</div>
+        <div class="sign-desc">Technical Architecture &amp; Delivery Lead</div>
+        <div class="sign-underline"></div>
+        <div class="sign-meta-row">
+          <span>Signature: _______________________</span>
+          <span>Date: ____ / ____ / 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-running-footer">
+      <span>Zippy: On-Demand Domestic Help Platform • Ahmedabad, Gujarat</span>
+      <span>Page 5 of 5</span>
+    </div>
+  </div>
+
+</body>
+</html>
