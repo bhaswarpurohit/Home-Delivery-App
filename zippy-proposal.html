@@ -459,8 +459,8 @@
       line-height: 1.6;
     }
 
-    /* Pod Structure Box */
-    .pod-box {
+    /* Delivery Strategy Pillar Box */
+    .pillar-box {
       background: var(--slate-50);
       border: 1px solid var(--slate-200);
       border-radius: var(--radius-sm);
@@ -468,40 +468,43 @@
       margin: 14px 0 20px 0;
     }
 
-    .pod-grid {
+    .pillar-grid {
       display: grid;
-      grid-template-columns: 1.25fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-top: 10px;
     }
 
-    .pod-card {
+    .pillar-card {
       background: var(--white);
       border: 1px solid var(--slate-200);
       border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      border-left: 3.5px solid var(--slate-800);
+      padding: 14px 16px;
+      border-top: 3.5px solid var(--slate-800);
     }
 
-    .pod-card.pod-card-sub { border-left-color: var(--slate-500); }
+    .pillar-card.card-accent { border-top-color: var(--accent); }
 
-    .pod-role {
-      font-size: 12px;
+    .pillar-title {
+      font-size: 12.5px;
       font-weight: 800;
       color: var(--slate-900);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .pod-hours {
+    .pillar-tag {
       font-size: 10px;
       font-weight: 700;
-      color: var(--slate-600);
+      color: var(--slate-500);
       text-transform: uppercase;
       margin-bottom: 6px;
       font-family: var(--font-mono);
     }
 
-    .pod-desc {
+    .pillar-desc {
       font-size: 11px;
       color: var(--slate-600);
       line-height: 1.45;
@@ -1049,7 +1052,7 @@
         margin-top: 14px;
       }
 
-      .pod-box, .arch-diagram-wrap, .dispatch-flowchart, .tech-stack-grid, .table-container, .pricing-card, .deliv-card, .callout, .sign-grid, .exec-brief, .metrics-grid {
+      .pillar-box, .arch-diagram-wrap, .dispatch-flowchart, .tech-stack-grid, .table-container, .pricing-card, .deliv-card, .callout, .sign-grid, .exec-brief, .metrics-grid {
         page-break-inside: avoid;
         break-inside: avoid;
       }
@@ -1073,9 +1076,9 @@
       <span class="top-brand-badge">Commercial Proposal</span>
     </div>
     <div class="top-meta">
-      <span>Target Launch: <strong>November 8, 2026</strong> (5 Weeks)</span>
+      <span>Target Launch: <strong>November 8, 2026</strong></span>
+      <span>Timeline: <strong>5 Weeks Turnkey</strong></span>
       <span>Investment: <strong>₹4,40,000 INR</strong></span>
-      <span>Team: <strong>3 Specialists (~600h)</strong></span>
     </div>
     <button class="print-btn" onclick="window.print()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1090,7 +1093,7 @@
   <!-- JUMP NAVIGATION (Screen Only) -->
   <div class="jump-nav">
     <a href="#exec-summary" class="jump-link">Executive Summary</a>
-    <a href="#pod-feasibility" class="jump-link">1. Pod Economics</a>
+    <a href="#delivery-feasibility" class="jump-link">1. Delivery Feasibility</a>
     <a href="#core-deliverables" class="jump-link">2. Core Deliverables</a>
     <a href="#snabbit-parity" class="jump-link">3. Snabbit Benchmark</a>
     <a href="#tech-architecture" class="jump-link">4. Architecture</a>
@@ -1109,9 +1112,9 @@
     <!-- HERO HEADER -->
     <div class="hero">
       <div class="hero-pills">
-        <span class="pill pill-accent">Hard Deadline: November 8, 2026</span>
+        <span class="pill pill-accent">Launch Target: November 8, 2026</span>
         <span class="pill">Turnkey: ₹4,40,000 INR</span>
-        <span class="pill">Lead (8 YOE) + 2 Helping Hands</span>
+        <span class="pill">5-Week Execution Timeline</span>
         <span class="pill">Ahmedabad Urban Corridors</span>
       </div>
       <h1 class="hero-title">Zippy: Hyperlocal 10-Minute Domestic Assistance Platform</h1>
@@ -1157,11 +1160,11 @@
         </div>
         <div class="exec-brief-item">
           <span class="exec-bullet">▶</span>
-          <div><strong>5-Week Feasibility:</strong> Delivered through an 8 YOE Lead assisted by 2 vetted helping hands (~600 combined production hours), guaranteeing launch on Nov 8.</div>
+          <div><strong>5-Week Delivery:</strong> Accelerated execution framework leveraging monorepo code sharing and pre-architected design patterns to hit the November 8 launch.</div>
         </div>
         <div class="exec-brief-item">
           <span class="exec-bullet">▶</span>
-          <div><strong>Fair Investment:</strong> ₹4,40,000 INR turnkey. Over 40% (₹1,80,000) is directly allocated to subcontractor specialists. Effective rate is only ~₹733/hr.</div>
+          <div><strong>Fixed Investment:</strong> ₹4,40,000 INR fixed turnkey for Option A, covering complete end-to-end development, testing, store compliance, and production handover.</div>
         </div>
         <div class="exec-brief-item">
           <span class="exec-bullet">▶</span>
@@ -1175,12 +1178,12 @@
       <div class="metric-card accent-card">
         <div class="metric-label">Target Go-Live</div>
         <div class="metric-val" style="color: var(--accent);">Nov 8, 2026</div>
-        <div class="metric-sub">5 Weeks (34 Days Rapid Strike)</div>
+        <div class="metric-sub">5 Weeks (34 Days Rapid Delivery)</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Engineering Pod</div>
-        <div class="metric-val">3 Specialists</div>
-        <div class="metric-sub">Lead (8 YOE) + 2 Helping Hands</div>
+        <div class="metric-label">Production Scope</div>
+        <div class="metric-val">3 Applications</div>
+        <div class="metric-sub">Customer, Helper &amp; Admin Ops</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Turnkey Investment</div>
@@ -1194,98 +1197,59 @@
       </div>
     </div>
 
-    <!-- SECTION 1: 5-WEEK DELIVERY FEASIBILITY & POD ECONOMICS -->
-    <div class="section-block" id="pod-feasibility">
+    <!-- SECTION 1: 5-WEEK DELIVERY FEASIBILITY & EXECUTION STRATEGY -->
+    <div class="section-block" id="delivery-feasibility">
       <div class="section-title">
         <span class="section-badge">01</span>
-        Delivery Feasibility: Launching by November 8, 2026 (5-Week Rapid-Strike Pod)
+        Delivery Feasibility &amp; 5-Week Turnkey Execution (Target Launch: November 8, 2026)
       </div>
       <p>
-        Today is <strong>October 5, 2026</strong>. The client has requested an expedited production go-live date of <strong>November 8, 2026 (34 calendar days / 5 weeks)</strong>. Delivering a full quick-commerce domestic assistance ecosystem—spanning <strong>three distinct applications</strong> (Customer iOS/Android, Vernacular Helper Android, Next.js Admin Console), a <strong>NestJS modular backend</strong>, and a <strong>PostGIS geospatial dispatch engine</strong>—requires <strong>~550 to 600 net engineering hours</strong>.
-      </p>
-      <p>
-        A solo developer working standard hours (40 hrs/wk) would require 14 weeks. To deliver by <strong>November 8 without cutting corners on code quality, security, or testing</strong>, the project is structured as a <strong>Rapid-Strike Engineering Pod</strong> led by an 8-year experienced technical lead assisted by two dedicated helping hands:
+        Today is <strong>October 5, 2026</strong>. The client has set a firm production go-live target of <strong>November 8, 2026 (5 Weeks)</strong>. Delivering a full quick-commerce domestic assistance ecosystem—spanning <strong>three distinct applications</strong> (Customer iOS/Android, Vernacular Helper Android, Next.js 15 Admin Console), a <strong>modular NestJS backend</strong>, and a <strong>PostGIS geospatial dispatch engine</strong>—within this timeline is achieved through a structured, accelerated engineering methodology:
       </p>
 
-      <!-- POD STRUCTURE CARDS -->
-      <div class="pod-box">
+      <!-- EXECUTION STRATEGY PILLARS -->
+      <div class="pillar-box">
         <div style="font-size: 11px; font-weight: 800; color: var(--slate-900); text-transform: uppercase; letter-spacing: 0.5px;">
-          Dedicated 3-Person Rapid-Strike Engineering Pod
+          Core Execution Pillars for Guaranteed 5-Week Delivery
         </div>
-        <div class="pod-grid">
-          <div class="pod-card">
-            <div class="pod-role">👨‍💻 Principal Tech Lead (8 YOE)</div>
-            <div class="pod-hours">~50 Hours / Week</div>
-            <div class="pod-desc">System architecture, NestJS 11 backend, PostGIS spatial dispatch, FSM state security, Razorpay webhooks, Twilio call masking, cloud DevOps &amp; App Store/Play Store submissions.</div>
+        <div class="pillar-grid">
+          <div class="pillar-card card-accent">
+            <div class="pillar-title">
+              <span>📦</span>
+              <span>Monorepo &amp; Shared Contracts</span>
+            </div>
+            <div class="pillar-tag">Turborepo • TypeScript • Zod</div>
+            <div class="pillar-desc">
+              100% shared data models, API DTOs, and validation schemas across mobile and web runtimes. Completely eliminates schema mismatch bugs and redundant integration overhead.
+            </div>
           </div>
-          <div class="pod-card pod-card-sub">
-            <div class="pod-role">📱 Helping Hand 1 (Mobile UI)</div>
-            <div class="pod-hours">~40 Hours / Week</div>
-            <div class="pod-desc">Dedicated React Native / Expo UI specialist scaffolding Customer &amp; Helper mobile interfaces, trilingual vernacular UI (GU/HI/EN), and audio alert modals.</div>
+          <div class="pillar-card">
+            <div class="pillar-title">
+              <span>⚡</span>
+              <span>Battle-Tested Core Engine</span>
+            </div>
+            <div class="pillar-tag">NestJS 11 • PostGIS • BullMQ</div>
+            <div class="pillar-desc">
+              Leverages proven quick-commerce primitives: PostGIS <code>ST_DWithin</code> nano-market waterfalls, Redis mutex locks, Twilio masked telephony, and native UPI intent via Razorpay SDK.
+            </div>
           </div>
-          <div class="pod-card pod-card-sub">
-            <div class="pod-role">🧪 Helping Hand 2 (Web &amp; QA)</div>
-            <div class="pod-hours">~32 Hours / Week</div>
-            <div class="pod-desc">Next.js 15 Admin dashboard, KYC document viewer, real device testing on budget Android hardware across Ahmedabad networks.</div>
+          <div class="pillar-card">
+            <div class="pillar-title">
+              <span>🚀</span>
+              <span>Parallel Multi-Surface Build</span>
+            </div>
+            <div class="pillar-tag">React Native • Next.js 15 • Playwright</div>
+            <div class="pillar-desc">
+              Concurrent development tracks across Customer UI, Vernacular Helper UI (GU/HI/EN), and Ops Portal, followed by budget Android device testing and streamlined store submission playbooks.
+            </div>
           </div>
         </div>
-        <div style="font-size: 11px; color: var(--slate-700); font-weight: 700; margin-top: 10px; text-align: center;">
-          ⚡ Combined Velocity: 120–125 Hours/Week × 5 Weeks = ~600 Production Hours Delivered by November 8!
-        </div>
-      </div>
-
-      <!-- TRANSPARENT POD BUDGET TABLE -->
-      <p style="font-weight: 700; color: var(--slate-900); margin-top: 14px; margin-bottom: 6px;">
-        Transparent Cost Breakdown for the ₹4,40,000 Turnkey Investment:
-      </p>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 25%;">Role &amp; Seniority</th>
-              <th style="width: 18%;">Hours (5 Wks)</th>
-              <th style="width: 18%;">Standard Rate</th>
-              <th style="width: 15%;">Allocation</th>
-              <th style="width: 24%;">Core Responsibilities</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Principal Lead (8 YOE)</strong></td>
-              <td>~250 hrs (50h/wk)</td>
-              <td>₹1,500–₹2,000/hr</td>
-              <td><strong>₹2,60,000</strong></td>
-              <td>Architecture, NestJS APIs, PostGIS dispatch, FSM security, payments, Twilio relay, store approvals.</td>
-            </tr>
-            <tr>
-              <td><strong>Helping Hand 1 (Mobile)</strong></td>
-              <td>~190 hrs (38h/wk)</td>
-              <td>₹600–₹800/hr</td>
-              <td><strong>₹1,10,000</strong></td>
-              <td>React Native / Expo UI specialist for Customer &amp; Helper mobile apps, vernacular flows.</td>
-            </tr>
-            <tr>
-              <td><strong>Helping Hand 2 (Web/QA)</strong></td>
-              <td>~160 hrs (32h/wk)</td>
-              <td>₹400–₹550/hr</td>
-              <td><strong>₹70,000</strong></td>
-              <td>Next.js 15 Admin console, KYC document review desk, device testing on budget Android phones.</td>
-            </tr>
-            <tr style="background: var(--slate-100); font-weight: 800;">
-              <td>Total Turnkey Investment</td>
-              <td>~600 Net Hours</td>
-              <td>Effective ~₹733/hr</td>
-              <td style="color: var(--slate-900); font-size: 13px;">₹4,40,000</td>
-              <td>Complete Turnkey Platform Delivered by Nov 8, 2026</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
       <div class="callout callout-accent">
         <span>💡</span>
         <div>
-          <strong>Budget Transparency:</strong> Over <strong>40% of the total turnkey fee (₹1,80,000)</strong> is paid directly to two vetted specialist subcontractors. The lead architect retains ₹2,60,000 for 5 weeks of 50–55h crunch weeks (~₹1,040/hr)—a significant discount from standard agency crash rates (₹12,00,000 to ₹16,00,000) while providing an ironclad delivery guarantee for November 8.
+          <strong>Fixed Turnkey Delivery:</strong> Option A provides full turnkey ownership for <strong>₹4,40,000 INR</strong> across <strong>5 weeks</strong>, delivering all 3 production apps, backend APIs, store approvals, and 45 days of defect warranty. For clients requiring Snabbit's enterprise workforce ERP and monthly subscription engine, an optional <strong>Phase 2 Add-On (+6 Weeks, +₹2,80,000 INR)</strong> is available post-launch.
         </div>
       </div>
     </div>
@@ -1937,7 +1901,7 @@ flowchart TB
             <span class="pricing-title">Option A: Core On-Demand MVP</span>
             <span class="badge b-green">₹4,40,000 INR</span>
           </div>
-          <div class="pricing-meta">5 Weeks (Delivered Nov 8, 2026) • ~600 Net Hours</div>
+          <div class="pricing-meta">5 Weeks (Delivered Nov 8, 2026)</div>
           <div style="font-size: 11px; font-weight: 700; color: #166534; margin-bottom: 8px;">★ Recommended for Nov 8 Launch</div>
           <ul class="pricing-list">
             <li>10–15 min radial dispatch (800m/1.5km PostGIS waterfall)</li>
@@ -1959,7 +1923,7 @@ flowchart TB
             <span class="pricing-title">Phase 2: Subscription ERP Add-On</span>
             <span class="badge b-amber">+₹2,80,000 INR</span>
           </div>
-          <div class="pricing-meta">+6 Weeks (Delivered Dec 20, 2026) • ~400 Net Hours</div>
+          <div class="pricing-meta">+6 Weeks (Delivered Dec 20, 2026)</div>
           <div style="font-size: 11px; font-weight: 700; color: #92400E; margin-bottom: 8px;">⚡ Post-Nov 8 Expansion Module</div>
           <ul class="pricing-list">
             <li><strong>30-Day Recurring Monthly Maid Subscription Engine</strong></li>
@@ -1978,13 +1942,13 @@ flowchart TB
             <span class="pricing-title">Option B: Exact 1:1 Snabbit Match</span>
             <span class="badge b-blue">₹7,20,000 INR</span>
           </div>
-          <div class="pricing-meta">11 Weeks Total (Full Delivery: Dec 20, 2026) • ~1,000 Net Hours</div>
+          <div class="pricing-meta">11 Weeks Total (Full Delivery: Dec 20, 2026)</div>
           <div style="font-size: 11px; font-weight: 700; color: #4338CA; margin-bottom: 8px;">👑 Complete Turnkey Package (Phases 1 + 2)</div>
           <ul class="pricing-list">
             <li><strong>Everything in Option A (Full On-Demand Core, Live Nov 8)</strong></li>
             <li><strong>Everything in Phase 2 Add-On (Subscription ERP, Live Dec 20)</strong></li>
             <li>Twin operational engines matching Snabbit's dual marketplace business model</li>
-            <li>Single technical team pod across the entire 11-week roadmap</li>
+            <li>Dedicated technical leadership across the entire 11-week roadmap</li>
             <li><em>Combined investment: ₹4,40,000 (Phase 1) + ₹2,80,000 (Phase 2) = ₹7,20,000 INR</em></li>
           </ul>
         </div>
@@ -2018,7 +1982,7 @@ flowchart TB
             <tr>
               <td><strong>Week 1</strong> (Oct 5–11)</td>
               <td><strong>Architecture &amp; Core APIs</strong></td>
-              <td>Turborepo setup, PostgreSQL 17 schema, PostGIS spatial indexing, shared Zod contracts, NestJS 11 backend auth module (MSG91 SMS), and approved Figma design system. Pod staffing onboarded.</td>
+              <td>Turborepo setup, PostgreSQL 17 schema, PostGIS spatial indexing, shared Zod contracts, NestJS 11 backend auth module (MSG91 SMS), and approved Figma design system. Development environment &amp; CI/CD workflows initialized.</td>
             </tr>
             <tr>
               <td><strong>Week 2</strong> (Oct 12–18)</td>
